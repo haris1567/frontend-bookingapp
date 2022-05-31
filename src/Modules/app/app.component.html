@@ -1,0 +1,60 @@
+<mat-sidenav-container [hasBackdrop]="" class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === true"
+  >
+    <mat-nav-list>
+      <a mat-list-item routerLink="/" class="custom-logo">
+        <img class="p-4 w-100" src="assets/images/curtin-logo.jpg" alt="logo" />
+
+        <a class="side-nav-logo"> {{ appTitle }}</a>
+      </a>
+      <a mat-list-item routerLink="/"> Home </a>
+      <a mat-list-item routerLink="/dashboard"> Dashboard </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Start of Content -->
+  <mat-sidenav-content>
+    <app-header></app-header>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading">
+    </mat-progress-bar>
+
+    <mat-toolbar
+      color="primary"
+      class="no_scroll mat-custom-row"
+      *ngIf="(isHandset$ | async) === false"
+    >
+      <div class="links-container">
+        <a mat-button routerLinkActive="focused" routerLink="/"> Home </a>
+        <a mat-button routerLinkActive="focused" routerLink="/dashboard">
+          Dashboard
+        </a>
+      </div>
+      <a mat-button class="pl-0" routerLink="/">
+        <img class="fixed-img" src="assets/images/curtin-logo.jpg" alt="logo" />
+        <span class="logo-text">{{ appTitle }}</span>
+      </a>
+    </mat-toolbar>
+
+    <mat-toolbar *ngIf="(isHandset$ | async) === true">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

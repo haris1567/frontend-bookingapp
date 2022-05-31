@@ -1,0 +1,21 @@
+<mat-card class="example-card">
+  <mat-card-title-group>
+    <mat-card-title>{{ labName }}</mat-card-title>
+    <mat-card-subtitle>Details</mat-card-subtitle>
+  </mat-card-title-group>
+  <mat-card-content>
+    <div class="row">
+      {{ labDetails }}
+    </div>
+
+    <div class="row">
+      <button mat-raised-button color="basic">View Calender</button>
+    </div>
+  </mat-card-content>
+
+  <div>
+    <img mat-card-xl-image src="src/assets/images/ccna_lab.jpg" />
+
+    <span class="display-1">{{ labName }}</span>
+  </div>
+</mat-card>

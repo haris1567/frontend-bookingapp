@@ -1,0 +1,32 @@
+$base-height: 6rem;
+$header-height: 5rem;
+
+.fixed-img {
+  width: 4.5rem;
+}
+
+.mat-custom-row {
+  transition: 0.2s linear;
+  background: rgba(255, 52, 1, 0.5);
+  height: $header-height;
+  z-index: 1000;
+}
+
+.links-container {
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+}
+
+.logo-text {
+  font-size: 1rem;
+  height: 4rem;
+  width: 7rem;
+  word-break: break-all;
+  white-space: normal;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 25px;
+  padding-top: 20px;
+}
