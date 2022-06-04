@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, map, shareReplay } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { MODULE_ADDRESS, MODULE_NAMES } from 'src/Models/modules';
 import { AppService } from 'src/Services/app-Service/app.service';
 
 @Component({
@@ -12,6 +13,9 @@ import { AppService } from 'src/Services/app-Service/app.service';
 })
 export class AppComponent {
   title = 'bookingapp-frontend';
+
+  modulesAddress = MODULE_ADDRESS;
+  moduleNames = MODULE_NAMES;
 
   env = environment;
   isLoading = false;

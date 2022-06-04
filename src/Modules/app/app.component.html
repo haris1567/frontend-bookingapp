@@ -13,8 +13,18 @@
 
         <a class="side-nav-logo"> {{ appTitle }}</a>
       </a>
-      <a mat-list-item routerLink="/"> Home </a>
-      <a mat-list-item routerLink="/dashboard"> Dashboard </a>
+      <a mat-list-item routerLink="/{{ modulesAddress.DASHBOARD }}">
+        {{ moduleNames[modulesAddress.DASHBOARD] }}
+      </a>
+      <a mat-list-item routerLink="/{{ modulesAddress.INSTRUCTOR_PANEL }}">
+        {{ moduleNames[modulesAddress.INSTRUCTOR_PANEL] }}
+      </a>
+      <a mat-list-item routerLink="/{{ modulesAddress.SETTINGS }}">
+        {{ moduleNames[modulesAddress.SETTINGS] }}
+      </a>
+      <a mat-list-item routerLink="/{{ modulesAddress.ABOUT_US }}">
+        {{ moduleNames[modulesAddress.ABOUT_US] }}
+      </a>
     </mat-nav-list>
   </mat-sidenav>
 
@@ -31,9 +41,33 @@
       *ngIf="(isHandset$ | async) === false"
     >
       <div class="links-container">
-        <a mat-button routerLinkActive="focused" routerLink="/"> Home </a>
-        <a mat-button routerLinkActive="focused" routerLink="/dashboard">
-          Dashboard
+        <a
+          mat-button
+          routerLinkActive="focused"
+          routerLink="/{{ modulesAddress.DASHBOARD }}"
+        >
+          {{ moduleNames[modulesAddress.DASHBOARD] }}
+        </a>
+        <a
+          mat-button
+          routerLinkActive="focused"
+          routerLink="/{{ modulesAddress.INSTRUCTOR_PANEL }}"
+        >
+          {{ moduleNames[modulesAddress.INSTRUCTOR_PANEL] }}
+        </a>
+        <a
+          mat-button
+          routerLinkActive="focused"
+          routerLink="/{{ modulesAddress.SETTINGS }}"
+        >
+          {{ moduleNames[modulesAddress.SETTINGS] }}
+        </a>
+        <a
+          mat-button
+          routerLinkActive="focused"
+          routerLink="/{{ modulesAddress.ABOUT_US }}"
+        >
+          {{ moduleNames[modulesAddress.ABOUT_US] }}
         </a>
       </div>
       <a mat-button class="pl-0" routerLink="/">
