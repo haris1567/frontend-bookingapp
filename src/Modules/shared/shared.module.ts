@@ -29,8 +29,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LoaderComponent } from './Components/loader/loader.component';
 
-const components = [NotificationCardComponent, ActionCardComponent];
+const components = [NotificationCardComponent, ActionCardComponent, LoaderComponent];
 const modules = [
   MatDialogModule,
   DragDropModule,
@@ -67,6 +68,7 @@ const modules = [
     CommonModule,
     LayoutModule,
     modules
-  ], exports: [modules, components]
+  ],
+  exports: [modules, components]
 })
 export class SharedModule { }

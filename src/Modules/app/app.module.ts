@@ -9,6 +9,8 @@ import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { NotfoundComponent } from './Components/notfound/notfound.component';
 import { AboutUsComponent } from './Components/about-us/about-us.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptService } from 'src/Services/http-intercept.service';
 
 @NgModule({
   declarations: [
@@ -24,8 +26,15 @@ import { AboutUsComponent } from './Components/about-us/about-us.component';
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

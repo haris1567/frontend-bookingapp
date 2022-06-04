@@ -2,15 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   apiUrl = environment.ApiUrl + '/user';
+
+  url = 'https://jsonplaceholder.typicode.com/users';
+  users: string[] = [];
   constructor(private http: HttpClient) { }
 
-
+  getData() {
+    this.http.get(this.url)
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
   getAllUsers(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
