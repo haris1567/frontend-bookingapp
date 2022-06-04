@@ -7,7 +7,6 @@ import { SharedModule } from '../shared/shared.module';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalenderHeaderComponent } from './calender-bookings/calender-header/calender-header.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateBookingComponent } from './shared/create-booking/create-booking.component';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { CreateBookingComponent } from './shared/create-booking/create-booking.c
     CalenderComponent,
     SlotsViewComponent,
     CalenderHeaderComponent,
-    DashboardComponent,
     CreateBookingComponent,
   ],
   imports: [

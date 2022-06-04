@@ -1,1 +1,6 @@
-<p>labs-container works!</p>
+<div>
+  <div *ngFor="let lab of labs" (click)="showLab(lab.labId)">
+    <img alt="{{ lab.name }}" />
+    {{ lab.name }}
+  </div>
+</div>

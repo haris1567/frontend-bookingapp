@@ -1,1 +1,8 @@
-<p>datatable works!</p>
+<div>
+  <button mat-button (click)="openBookingChangeDialog('{{editAction}}')">
+    {{ editAction }}
+  </button>
+  <button mat-button (click)="openBookingChangeDialog('{{deleteAction}}')">
+    {{ deleteAction }}
+  </button>
+</div>
