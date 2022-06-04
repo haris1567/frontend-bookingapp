@@ -30,7 +30,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialogModule } from '@angular/material/dialog';
 
-const components: any[] | Type<any> = [];
+const components = [NotificationCardComponent, ActionCardComponent];
 const modules = [
   MatDialogModule,
   DragDropModule,
@@ -62,7 +62,7 @@ const modules = [
 
 
 @NgModule({
-  declarations: [components, NotificationCardComponent, ActionCardComponent],
+  declarations: [components],
   imports: [
     CommonModule,
     LayoutModule,

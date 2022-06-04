@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { dashboardRoutingComponents, DashboardRoutingModule } from './dashboard-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { LabDetailsComponent } from './lab-details/lab-details.component';
+import { LabDetailsComponent } from './Components/lab-details/lab-details.component';
 
 @NgModule({
   declarations: [dashboardRoutingComponents, LabDetailsComponent],

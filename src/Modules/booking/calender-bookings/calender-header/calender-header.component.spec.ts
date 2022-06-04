@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookingDatatableComponent } from './booking-datatable.component';
+import { CalenderHeaderComponent } from './calender-header.component';
 
-describe('BookingDatatableComponent', () => {
-  let component: BookingDatatableComponent;
-  let fixture: ComponentFixture<BookingDatatableComponent>;
+describe('CalenderHeaderComponent', () => {
+  let component: CalenderHeaderComponent;
+  let fixture: ComponentFixture<CalenderHeaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BookingDatatableComponent ]
+      declarations: [ CalenderHeaderComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BookingDatatableComponent);
+    fixture = TestBed.createComponent(CalenderHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
