@@ -11,7 +11,15 @@ import { NotfoundComponent } from './Components/notfound/notfound.component';
 import { AboutUsComponent } from './Components/about-us/about-us.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptService } from 'src/Services/http-intercept.service';
+import { NotificationAnimationType, Options, SimpleNotificationsModule } from 'angular2-notifications';
 
+const options: Options = {
+  position: ["bottom", "right"],
+  timeOut: 2000,
+  clickToClose: true,
+  preventDuplicates: true,
+  animate: NotificationAnimationType.FromRight
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +34,7 @@ import { HttpInterceptService } from 'src/Services/http-intercept.service';
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot({ ...options }),
     HttpClientModule
   ],
   providers: [
