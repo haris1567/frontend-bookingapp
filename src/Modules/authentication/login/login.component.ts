@@ -32,15 +32,13 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.userForm.controls['userId'].value, this.userForm.controls['password'].value);
     const val = { userId: this.userForm.controls['userId'].value, password: this.userForm.controls['password'].value }
 
     if (val.userId && val.password) {
       this.authService.login(val)
         .subscribe(
-          (response) => {
-            console.log('response received:', response);
-            this.router.navigateByUrl('/');
+          () => {
+            this.checkLogin();
           }
         );
     }

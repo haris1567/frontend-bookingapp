@@ -1,8 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-
+import {
+  addSeconds, isBefore
+} from 'date-fns';
+import { TOKEN_PROPERTIES } from 'src/Models/constants';
+interface JwtModel {
+  expiresAt: Date;
+  idToken: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -13,11 +21,35 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   isAuthenticated() {
-    return this.isLoggedIn;
+    return isBefore(new Date(), this.getExpiration());
   }
 
-  login(credentials: any): Observable<any> {
+  isLoggedOut() {
+    return !this.isAuthenticated();
+  }
+
+  private setSession(authResult: JwtModel) {
+    const expiresAt = addSeconds(new Date(), (new Date(authResult.expiresAt)).getSeconds());
+
+    localStorage.setItem(TOKEN_PROPERTIES.idToken, authResult.idToken);
+    localStorage.setItem(TOKEN_PROPERTIES.exiresIn, JSON.stringify(expiresAt.valueOf()));
+  }
+
+
+  getExpiration() {
+    const expiration = localStorage.getItem(TOKEN_PROPERTIES.exiresIn);
+    const expiresAt = JSON.parse(expiration ?? '');
+    return new Date(expiresAt);
+  }
+
+
+  login(credentials: any) {
     const url = `${this.apiUrl}/login`;
-    return this.http.post(url, credentials);
+    return this.http.post(url, credentials).pipe(tap((res: any) => this.setSession(res)));
+  }
+
+  logout() {
+    localStorage.removeItem(TOKEN_PROPERTIES.idToken);
+    localStorage.removeItem(TOKEN_PROPERTIES.exiresIn);
   }
 }

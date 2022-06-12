@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { LoaderService } from './loader.service';
 import { catchError, finalize } from 'rxjs/operators';
 import { AppNotificationService } from './app-notification-service/app-notification-service';
+import { TOKEN_PROPERTIES } from 'src/Models/constants';
 
 
 
@@ -23,13 +24,18 @@ export class HttpInterceptService implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.loaderService.show();
 
-    return next.handle(request)
+    const idToken = localStorage.getItem(TOKEN_PROPERTIES.idToken);
+
+    const newRequest = idToken ? request.clone({
+      headers: request.headers.set("Authorization",
+        "Bearer " + idToken)
+    }) : request;
+
+    return next.handle(newRequest)
       .pipe(
         finalize(() => this.loaderService.hide()),
       ).pipe(catchError(err => {
         if (err instanceof HttpErrorResponse) {
-
-          console.log('this should print your error!', err);
           const errorMessage = typeof err.error === 'object' ? err.error.error.message : err.error;
           this.notificationService.showError('Error!', errorMessage);
 
