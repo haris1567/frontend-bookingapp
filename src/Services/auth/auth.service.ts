@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import {
-  addSeconds, isBefore
+  isBefore
 } from 'date-fns';
 import { TOKEN_PROPERTIES } from 'src/Models/constants';
 interface JwtModel {
@@ -21,6 +20,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   isAuthenticated() {
+    console.log({ currentDate: new Date(), expiresIn: this.getExpiration(), isBefore: isBefore(new Date(), this.getExpiration()) });
     return isBefore(new Date(), this.getExpiration());
   }
 
@@ -29,7 +29,8 @@ export class AuthService {
   }
 
   private setSession(authResult: JwtModel) {
-    const expiresAt = addSeconds(new Date(), (new Date(authResult.expiresAt)).getSeconds());
+
+    const expiresAt = new Date(authResult.expiresAt).getTime();
 
     localStorage.setItem(TOKEN_PROPERTIES.idToken, authResult.idToken);
     localStorage.setItem(TOKEN_PROPERTIES.exiresIn, JSON.stringify(expiresAt.valueOf()));
