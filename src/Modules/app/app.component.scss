@@ -7,7 +7,7 @@ $header-height: 5rem;
 
 .mat-custom-row {
   transition: 0.2s linear;
-  background: rgba(255, 52, 1, 0.5);
+  background: rgba(0, 0, 0, 0);
   height: $header-height;
   z-index: 1000;
 }
@@ -15,8 +15,9 @@ $header-height: 5rem;
 .links-container {
   width: inherit;
   display: flex;
-  justify-content: center;
-  position: fixed;
+  justify-content: space-evenly;
+  font-size: xx-large;
+  //position: fixed;
 }
 
 .logo-text {

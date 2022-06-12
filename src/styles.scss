@@ -8,12 +8,16 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Montserrat !important;
 }
 
 .container-fluid {
   height: 100%;
   max-width: fit-content;
+}
+
+.mt-3 {
+  margin-top: 1.5rem !important;
 }
 
 .mr-2 {
@@ -55,4 +59,9 @@ body {
 
 .float-right {
   float: right;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }

@@ -32,47 +32,46 @@
 
   <!-- Start of Content -->
   <mat-sidenav-content>
-    <app-header></app-header>
-
     <mat-toolbar
       color="primary"
       class="no_scroll mat-custom-row"
       *ngIf="(isHandset$ | async) === false"
     >
+      <!-- <a mat-button class="pl-0" routerLink="/">
+        <img class="fixed-img" src="assets/images/curtin-logo.jpg" alt="logo" />
+        <span class="logo-text">{{ appTitle }}</span>
+      </a> -->
+
       <div class="links-container">
         <a
-          mat-button
+          mat-list-item
           routerLinkActive="focused"
           routerLink="/{{ modulesAddress.DASHBOARD }}"
         >
           {{ moduleNames[modulesAddress.DASHBOARD] }}
         </a>
         <a
-          mat-button
+          mat-list-item
           routerLinkActive="focused"
           routerLink="/{{ modulesAddress.INSTRUCTOR_PANEL }}"
         >
           {{ moduleNames[modulesAddress.INSTRUCTOR_PANEL] }}
         </a>
         <a
-          mat-button
+          mat-list-item
           routerLinkActive="focused"
           routerLink="/{{ modulesAddress.SETTINGS }}"
         >
           {{ moduleNames[modulesAddress.SETTINGS] }}
         </a>
         <a
-          mat-button
+          mat-list-item
           routerLinkActive="focused"
           routerLink="/{{ modulesAddress.ABOUT_US }}"
         >
           {{ moduleNames[modulesAddress.ABOUT_US] }}
         </a>
       </div>
-      <a mat-button class="pl-0" routerLink="/">
-        <img class="fixed-img" src="assets/images/curtin-logo.jpg" alt="logo" />
-        <span class="logo-text">{{ appTitle }}</span>
-      </a>
     </mat-toolbar>
 
     <mat-toolbar *ngIf="(isHandset$ | async) === true">
@@ -85,6 +84,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
     </mat-toolbar>
+
     <app-loader></app-loader>
 
     <simple-notifications></simple-notifications>

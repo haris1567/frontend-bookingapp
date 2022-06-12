@@ -30,8 +30,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoaderComponent } from './Components/loader/loader.component';
+import { TitleWordComponent } from './Components/title-word/title-word.component';
 
-const components = [NotificationCardComponent, ActionCardComponent, LoaderComponent];
+const components = [NotificationCardComponent, ActionCardComponent, LoaderComponent, TitleWordComponent];
 const modules = [
   MatDialogModule,
   DragDropModule,

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ImageInfo } from 'src/Models/image-info';
 import { MODULE_ADDRESS } from 'src/Models/modules';
+import { AuthService } from 'src/Services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,15 +11,43 @@ import { MODULE_ADDRESS } from 'src/Models/modules';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  isLoggedIn = true;
-  constructor(private router: Router,) { }
+  userForm: FormGroup;
+  hide = true;
+  imageInfo: ImageInfo = {
+    url: 'assets/icons/instructor.png',
+    alt: 'Generic User Icon'
+  }
+  constructor(private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router) {
+
+    this.userForm = this.fb.group({
+      userId: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
+
+  }
+
+  login() {
+    console.log(this.userForm.controls['userId'].value, this.userForm.controls['password'].value);
+    const val = { userId: this.userForm.controls['userId'].value, password: this.userForm.controls['password'].value }
+
+    if (val.userId && val.password) {
+      this.authService.login(val)
+        .subscribe(
+          (response) => {
+            console.log('response received:', response);
+            this.router.navigateByUrl('/');
+          }
+        );
+    }
   }
 
   checkLogin() {
-
-    if (this.isLoggedIn) {
+    if (this.authService.isAuthenticated()) {
       this.router.navigate([`/${MODULE_ADDRESS.INSTRUCTOR_PANEL}`]);
     }
   }

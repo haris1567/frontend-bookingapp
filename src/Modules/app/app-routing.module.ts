@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/Guards/auth/auth.guard';
 import { MODULE_ADDRESS } from 'src/Models/modules';
 import { AboutUsComponent } from './Components/about-us/about-us.component';
 import { MainComponent } from './Components/main/main.component';
@@ -15,7 +16,7 @@ const routes: Routes = [
       import("../dashboard/dashboard.module").then((m) => m.DashboardModule),
   },
   {
-    path: `${MODULE_ADDRESS.INSTRUCTOR_PANEL}`,
+    path: `${MODULE_ADDRESS.INSTRUCTOR_PANEL}`, canActivate: [AuthGuard],
     loadChildren: () => import("../instructor/instructor.module").then(m => m.InstructorModule)
   },
   {
