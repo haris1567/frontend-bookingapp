@@ -3,4 +3,5 @@ export interface Lab {
     labId: string;
     name: string;
     details: string;
+    imageUrl?: string;
 }

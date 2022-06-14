@@ -13,7 +13,16 @@ import { Router } from '@angular/router';
 })
 export class LabsContainerComponent implements OnInit {
 
-  labs: Lab[] = [{ name: 'CCNA Lab', id: 1, labId: 'ccna', details: 'CISCO Labs' }];
+  labs: Lab[] = [
+    { name: 'Library', id: 1, labId: 'library', details: '', imageUrl: 'assets/images/library.jpg' },
+    { name: 'CCNA Lab', id: 2, labId: 'ccna', details: 'CISCO Labs', imageUrl: 'assets/images/ccna_lab.jpg' },
+    { name: 'Comp Lab', id: 3, labId: 'comp', details: '', imageUrl: 'assets/images/comp_lab.jpg' },
+    { name: 'Bio. Lab', id: 4, labId: 'bio', details: '', imageUrl: 'assets/images/bio_lab.jpg' },
+    { name: 'Comm Lab', id: 5, labId: 'comm', details: '', imageUrl: 'assets/images/com_lab.jpg' },
+    { name: 'CAD Lab', id: 6, labId: 'cad', details: '', imageUrl: 'assets/images/cad_lab.jpg' },
+    { name: 'Server Room', id: 7, labId: 'server', details: '', imageUrl: 'assets/images/server.jpg' },
+    { name: 'Mech. Lab', id: 8, labId: 'mech', details: '', imageUrl: 'assets/images/mech_lab.jpg' }
+  ];
   isDialogOpen = false;
 
   constructor(public dialog: MatDialog, private labService: LabService, private router: Router) { }
