@@ -10,6 +10,8 @@ $header-height: 5rem;
   background: rgba(0, 0, 0, 0);
   height: $header-height;
   z-index: 1000;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .links-container {
