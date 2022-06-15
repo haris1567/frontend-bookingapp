@@ -20,7 +20,6 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   isAuthenticated() {
-    console.log({ currentDate: new Date(), expiresIn: this.getExpiration(), isBefore: isBefore(new Date(), this.getExpiration()) });
     return isBefore(new Date(), this.getExpiration());
   }
 

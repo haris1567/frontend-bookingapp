@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Booking } from 'src/Models/booking';
+import { BookingService } from 'src/Services/Booking-Service/booking.service';
 
 @Component({
   selector: 'app-instructor',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InstructorComponent implements OnInit {
 
-  constructor() { }
+  bookingInformation: Booking[] = [];
+
+  constructor(private bookingService: BookingService) {
+    this.bookingService.getAllBookings().subscribe(response => {
+      this.bookingInformation = response;
+    })
+  }
 
   ngOnInit(): void {
   }
