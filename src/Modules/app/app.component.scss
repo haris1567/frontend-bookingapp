@@ -34,3 +34,28 @@ $header-height: 5rem;
   line-height: 25px;
   padding-top: 20px;
 }
+
+::ng-deep .custom-logo {
+  height: fit-content !important;
+  .mat-list-item-content {
+    display: contents !important;
+  }
+  img {
+    width: 100%;
+  }
+}
+
+.sidenav {
+  width: 25%;
+}
+
+.menu-class {
+  color: black;
+  width: 6rem;
+  height: 3rem;
+  margin-top: -2rem;
+  margin-left: 1rem;
+  mat-icon {
+    font-size: 5rem;
+  }
+}
