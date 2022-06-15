@@ -1,11 +1,12 @@
 <div class="lab-items-container">
   <div *ngFor="let lab of labs">
     <div (click)="showLab(lab.labId)" class="m-4">
-      <span>
-        {{ lab.name }}
-      </span>
       <div class="lab-item">
         <img [src]="lab.imageUrl" alt="{{ lab.name }}" />
+
+        <div class="text-block">
+          {{ lab.name }}
+        </div>
       </div>
     </div>
   </div>

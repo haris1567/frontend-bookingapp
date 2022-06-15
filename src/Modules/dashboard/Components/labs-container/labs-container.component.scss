@@ -2,14 +2,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  span {
-    font-size: xx-large;
-    color: blue;
-    cursor: pointer;
-  }
 }
 
 .lab-item {
+  position: relative;
   cursor: pointer;
   border-radius: 2rem;
   overflow: hidden;
@@ -19,4 +15,17 @@
     filter: hue-rotate(180deg) brightness(90%) grayscale(20%);
     width: 100%;
   }
+}
+
+.text-block {
+  position: absolute;
+  width: 14rem;
+  transform: (-50%, -50%);
+  top: 75%;
+  left: 10%;
+  font-size: 2.5rem;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 2px;
 }
