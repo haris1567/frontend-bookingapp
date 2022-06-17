@@ -36,9 +36,14 @@ export class HttpInterceptService implements HttpInterceptor {
         finalize(() => this.loaderService.hide()),
       ).pipe(catchError(err => {
         if (err instanceof HttpErrorResponse) {
-          const errorMessage = typeof err.error === 'object' ? err.error.error.message : err.error;
-          this.notificationService.showError('Error!', errorMessage);
+          let errorMessage = 'No Response from Server!';
+          console.log(err)
+          if (err.error && err.status !== 0) {
 
+            errorMessage = typeof err.error === 'object' ? err.error.error.message : err.error;
+          }
+
+          this.notificationService.showError('Error!', errorMessage);
         }
         return new Observable<HttpEvent<any>>();
       }));

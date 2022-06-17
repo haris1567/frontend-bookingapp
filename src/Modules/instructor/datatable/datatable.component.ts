@@ -2,7 +2,9 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Booking } from 'src/Models/booking';
+import { BOOKING_ACTION } from 'src/Models/constants';
 import { EditBookingComponent } from '../dialog-components/edit-booking/edit-booking.component';
+import { BookingActioninfo } from '../instructor.interfaces';
 
 @Component({
   selector: 'app-datatable',
@@ -13,12 +15,12 @@ export class DatatableComponent implements OnInit, OnChanges {
 
   @Input()
   bookingInformation: Booking[] = [];
-  displayedColumns: string[] = ['id', 'date', 'title', 'time', 'labId', 'uid', 'dateAdded', 'actions'];
+  displayedColumns: string[] = ['id', 'date', 'title', 'time', 'labName', 'uid', 'dateAdded', 'actions'];
 
   public dataSource: any;
 
-  deleteAction = 'Delete';
-  editAction = 'Edit';
+  deleteAction = BOOKING_ACTION.deleteAction;
+  editAction = BOOKING_ACTION.editAction;
 
   constructor(public dialog: MatDialog) { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -40,19 +42,23 @@ export class DatatableComponent implements OnInit, OnChanges {
       title,
       time: `${(new Date(startTime)).getHours()}00 - ${(new Date(endTime)).getHours()}00`,
       uid,
-      labId,
+      labName: labId == 1 ? "CCNA Lab" : "Lab Not Available",
       dateAdded
     })));
   }
 
   openBookingChangeDialog(action: string, id: number) {
-    console.log({ action, id })
+    console.log({ action, id, editAction: this.editAction, deleteAction: this.deleteAction });
+    const data: BookingActioninfo = {
+      action, id
+    }
     const dialogRef = this.dialog.open(EditBookingComponent, {
-      width: "300px",
-      data: {
-        action,
-        id
-      }
+      width: "50%",
+      height: "70%",
+      minWidth: "40rem",
+      minHeight: "40rem",
+      data,
+
     });
 
     dialogRef.afterClosed().subscribe(result => console.log(result));

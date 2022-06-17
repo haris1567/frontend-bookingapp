@@ -46,10 +46,10 @@
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
 
-    <ng-container matColumnDef="labId">
+    <ng-container matColumnDef="labName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Lab</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.labId == 1 ? "CCNA Lab" : "Lab Not Available" }}
+        {{ element.labName }}
       </td>
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
@@ -72,7 +72,7 @@
         <button
           mat-mini-fab
           color="primary"
-          (click)="openBookingChangeDialog('{{editAction}}', element.id)"
+          (click)="openBookingChangeDialog(editAction, element.id)"
         >
           <mat-icon>edit</mat-icon>
         </button>
@@ -80,7 +80,7 @@
         <button
           mat-mini-fab
           color="warn"
-          (click)="openBookingChangeDialog('{{deleteAction}}', element.id)"
+          (click)="openBookingChangeDialog(deleteAction, element.id)"
         >
           <mat-icon>delete</mat-icon>
         </button>

@@ -1,1 +1,53 @@
-<p>edit-booking works!</p>
+<div class="container-fit" style="background-color: #289f69; color: white">
+  <div class="image-container"><img [src]="imageUrl" [alt]="imageAlt" /></div>
+
+  <div class="display-4 pb-3">{{ action | titlecase }} Booking</div>
+
+  <div mat-dialog-content>
+    <div class="booking-time-container">
+      <div class="input-item">
+        <img [src]="calenderUrl" />
+
+        <ng-container *ngIf="action == bookingActions.editAction">
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Enter Date</mat-label>
+            <input matInput [matDatepicker]="picker2" disabled />
+
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container
+          *ngIf="action == bookingActions.deleteAction"
+        ></ng-container>
+      </div>
+
+      <div class="input-item">
+        <img [src]="clockUrl" />
+        <ng-container *ngIf="action == bookingActions.editAction">
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Enter Time</mat-label>
+            <input matInput type="datetime-local" placeholder="start date" />
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container
+          *ngIf="action == bookingActions.deleteAction"
+        ></ng-container>
+      </div>
+    </div>
+  </div>
+
+  <mat-dialog-actions align="center">
+    <button mat-raised-button mat-dialog-close (click)="closeDialog()">
+      Cancel
+    </button>
+    <button mat-raised-button [mat-dialog-close]="editInfo" cdkFocusInitial>
+      Confirm
+    </button>
+  </mat-dialog-actions>
+</div>
