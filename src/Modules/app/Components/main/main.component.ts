@@ -1,10 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { Observable } from "rxjs";
-import { map, shareReplay } from "rxjs/operators";
-import { Router } from '@angular/router';
-import { AppService } from 'src/Services/app-Service/app.service';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { UserService } from 'src/Services/User-Service/user.service';
 import { AppNotificationService } from 'src/Services/app-notification-service/app-notification-service';
 @Component({
@@ -13,6 +7,12 @@ import { AppNotificationService } from 'src/Services/app-notification-service/ap
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+
+  bookingLogoUrl = "assets/images/bookingAppLogo.png";
+  secondImageUrl = "";
+
+  title = "BOOKING APP";
+
   constructor(private userService: UserService, private notificationService: AppNotificationService) { }
   ngOnInit(): void {
 

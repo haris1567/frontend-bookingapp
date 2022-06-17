@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BookingActioninfo, BookingEditInfo } from 'src/Models/booking';
 import { BOOKING_ACTION } from 'src/Models/constants';
-import { BookingActioninfo, BookingEditInfo } from '../../instructor.interfaces';
 
 @Component({
   selector: 'app-edit-booking',

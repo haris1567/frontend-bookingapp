@@ -1,0 +1,22 @@
+.container-fit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+  background: linear-gradient(
+    0deg,
+    rgba(40, 159, 105, 1) 0%,
+    rgba(183, 223, 205, 1) 100%,
+    rgba(255, 255, 255, 1) 10%
+  );
+
+  img {
+    width: 31%;
+    padding-bottom: 1rem;
+  }
+
+  .title {
+    font-size: 5rem;
+  }
+}

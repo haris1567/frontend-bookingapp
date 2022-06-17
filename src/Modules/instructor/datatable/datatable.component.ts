@@ -1,10 +1,9 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Booking } from 'src/Models/booking';
+import { Booking, BookingActioninfo } from 'src/Models/booking';
 import { BOOKING_ACTION } from 'src/Models/constants';
-import { EditBookingComponent } from '../dialog-components/edit-booking/edit-booking.component';
-import { BookingActioninfo } from '../instructor.interfaces';
+import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-components/edit-booking/edit-booking.component';
 
 @Component({
   selector: 'app-datatable',

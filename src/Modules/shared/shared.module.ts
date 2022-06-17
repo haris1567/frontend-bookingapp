@@ -31,8 +31,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoaderComponent } from './Components/loader/loader.component';
 import { TitleWordComponent } from './Components/title-word/title-word.component';
+import { EditBookingComponent } from './Components/dialog-components/edit-booking/edit-booking.component';
 
-const components = [NotificationCardComponent, ActionCardComponent, LoaderComponent, TitleWordComponent];
+const components = [NotificationCardComponent, ActionCardComponent, LoaderComponent, TitleWordComponent, EditBookingComponent];
 const modules = [
   MatDialogModule,
   DragDropModule,

@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './Components/main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FooterComponent } from './Components/footer/footer.component';
 import { NotfoundComponent } from './Components/notfound/notfound.component';
 import { AboutUsComponent } from './Components/about-us/about-us.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -24,7 +23,6 @@ const options: Options = {
   declarations: [
     AppComponent,
     MainComponent,
-    FooterComponent,
     NotfoundComponent,
     AboutUsComponent
   ],
