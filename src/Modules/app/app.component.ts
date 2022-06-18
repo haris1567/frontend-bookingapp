@@ -1,6 +1,7 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Observable, map, shareReplay } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MODULE_ADDRESS, MODULE_NAMES } from 'src/Models/modules';
@@ -9,7 +10,14 @@ import { AppService } from 'src/Services/app-Service/app.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state('true', style({ transform: 'translateX(-100%)' })),
+      state('false', style({ transform: 'translateX(0%)' })),
+      transition('* => true', animate(500, style({ transform: 'translateX(-100%)' })))
+    ])
+  ],
 })
 export class AppComponent {
   title = 'bookingapp-frontend';
@@ -19,6 +27,8 @@ export class AppComponent {
 
   env = environment;
   isLoading = false;
+  isMainRoute = false;
+  isOpen = false;
   appTitle = "Booking App"
 
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -33,5 +43,32 @@ export class AppComponent {
     private appService: AppService) { }
 
   ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+
+      if (event instanceof NavigationEnd) {
+        const paths = this.router.url.split("/").slice(1);
+        this.isMainRoute = paths[0] === 'main';
+
+        if (this.isMainRoute) {
+          this.triggerRouteChange();
+        } else {
+          this.isOpen = false;
+        }
+      }
+    });
+
+
+  }
+
+  triggerRouteChange() {
+
+    setTimeout(() => {
+      this.isOpen = true;
+      setTimeout(() => {
+        this.router.navigateByUrl(MODULE_ADDRESS.DASHBOARD);
+      }, 500)
+    }, 1500);
+
+
   }
 }

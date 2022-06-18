@@ -29,11 +29,14 @@
   </mat-sidenav>
 
   <!-- Start of Content -->
-  <mat-sidenav-content>
+  <mat-sidenav-content
+    [@openClose]="isOpen ? true : false"
+    class="open-close-container"
+  >
     <mat-toolbar
       color="primary"
       class="no_scroll mat-custom-row"
-      *ngIf="(isHandset$ | async) === false"
+      *ngIf="(isHandset$ | async) === false && !isMainRoute"
     >
       <a class="menu-class pl-0" routerLink="/">
         <mat-icon>menu</mat-icon>
@@ -87,7 +90,5 @@
     <simple-notifications></simple-notifications>
 
     <router-outlet></router-outlet>
-
-    <app-footer></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>
