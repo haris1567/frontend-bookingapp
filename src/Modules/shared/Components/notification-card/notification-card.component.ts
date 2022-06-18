@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationCardComponent implements OnInit {
 
+  imageUrl = "assets/images/notification.png";
+
   constructor() { }
 
   ngOnInit(): void {

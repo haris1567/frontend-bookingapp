@@ -5,6 +5,7 @@ import { LabService } from 'src/Services/Lab-Service/lab.service';
 import { LabDetailsComponent } from '../lab-details/lab-details.component';
 import { MODULE_ADDRESS } from 'src/Models/modules';
 import { Router } from '@angular/router';
+import { NotificationCardComponent } from 'src/Modules/shared/Components/notification-card/notification-card.component';
 
 @Component({
   selector: 'app-labs-container',
@@ -32,21 +33,28 @@ export class LabsContainerComponent implements OnInit {
 
   showLab(labId: string) {
 
+    if (labId !== 'ccna') {
+      this.dialog.open(NotificationCardComponent, {
+        width: "700px",
+        height: '450px',
+        panelClass: 'custom-container'
+      });
+    } else {
 
-    if (this.isDialogOpen) {
-      return;
+      const dialogRef = this.dialog.open(LabDetailsComponent, {
+        width: '500px',
+        data: { lab: this.labs.find(lab => lab.labId == labId) }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.isDialogOpen = false;
+        if (result) {
+          this.router.navigate([`/${MODULE_ADDRESS.BOOKING}/calender/${labId}`]);
+        }
+      });
     }
 
-    const dialogRef = this.dialog.open(LabDetailsComponent, {
-      width: '500px',
-      data: { lab: this.labs.find(lab => lab.labId == labId) }
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.isDialogOpen = false;
-      if (result) {
-        this.router.navigate([`/${MODULE_ADDRESS.BOOKING}/calender/${labId}`]);
-      }
-    });
+
   }
 }
