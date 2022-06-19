@@ -76,6 +76,8 @@
     [events]="events"
     [refresh]="refresh"
     (eventClicked)="handleEvent('Clicked', $event.event)"
+    (dayHeaderClicked)="clickedDate = $event.day.date; openCreateEventDialog()"
+    (hourSegmentClicked)="clickedDate = $event.date; openCreateEventDialog()"
     (eventTimesChanged)="eventTimesChanged($event)"
   >
   </mwl-calendar-week-view>
@@ -85,6 +87,7 @@
     [events]="events"
     [refresh]="refresh"
     (eventClicked)="handleEvent('Clicked', $event.event)"
+    (hourSegmentClicked)="clickedDate = $event.date; openCreateEventDialog()"
     (eventTimesChanged)="eventTimesChanged($event)"
   >
   </mwl-calendar-day-view>

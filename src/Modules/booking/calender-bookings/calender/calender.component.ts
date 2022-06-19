@@ -22,6 +22,10 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
+import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-components/edit-booking/edit-booking.component';
+import { MatDialog } from '@angular/material/dialog';
+import { BookingActionInfo } from 'src/Models/booking';
+import { BOOKING_ACTION } from 'src/Models/constants';
 
 
 const colors: any = {
@@ -47,11 +51,13 @@ const colors: any = {
 export class CalenderComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any> | undefined;
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = false; // To open current Day Data on default
 
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
+
+  clickedDate: Date | undefined;
 
   refresh = new Subject<void>();
 
@@ -87,12 +93,6 @@ export class CalenderComponent implements OnInit {
       title: 'A 3 day event',
       color: colors.red,
       actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
     },
     {
       start: startOfDay(new Date()),
@@ -105,42 +105,40 @@ export class CalenderComponent implements OnInit {
       end: addDays(endOfMonth(new Date()), 3),
       title: 'A long event that spans 2 months',
       color: colors.blue,
-      allDay: true,
     },
     {
       start: addHours(startOfDay(new Date()), 2),
       end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
+      title: 'Simple Event',
       color: colors.yellow,
       actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
     },
   ];
 
 
   constructor(
     //private modal: NgbModal
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-      this.viewDate = date;
-    }
+    this.clickedDate = date;
+    this.openCreateEventDialog();
+    // if (isSameMonth(date, this.viewDate)) {
+    //   if (
+    //     (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+    //     events.length === 0
+    //   ) {
+    //     this.activeDayIsOpen = false;
+
+    //   } else {
+    //     // this.activeDayIsOpen = true;
+    //   }
+    //   this.viewDate = date;
+    // }
   }
 
   eventTimesChanged({
@@ -164,7 +162,26 @@ export class CalenderComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
+    console.log(action, { event }, this.clickedDate);
     // this.modal.open(this.modalContent, { size: 'lg' });
+  }
+
+  openCreateEventDialog(): void {
+    const data: BookingActionInfo = {
+      action: BOOKING_ACTION.createAction,
+      id: 0,
+      date: this.clickedDate
+    }
+    const dialogRef = this.dialog.open(EditBookingComponent, {
+      data,
+      width: "50%",
+      height: "70%",
+      minWidth: "40rem",
+      minHeight: "40rem",
+    });
+
+    dialogRef.afterClosed().subscribe(() => this.refresh.next());
+
   }
 
   addEvent(): void {

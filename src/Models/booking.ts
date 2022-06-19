@@ -9,9 +9,10 @@ export interface Booking {
     dateAdded: Date;
 }
 
-export interface BookingActioninfo {
+export interface BookingActionInfo {
     action: string;
     id: number;
+    date?: Date;
 }
 
 export interface BookingEditInfo {

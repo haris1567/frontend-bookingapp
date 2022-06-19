@@ -1,11 +1,18 @@
-<div>
-  <div>
+<div class="booking-container">
+  <div class="p-3">
     <app-calender-header></app-calender-header>
   </div>
 
-  <div>
+  <div class="p-3">
     <app-calender></app-calender>
   </div>
 
-  <button mat-button (click)="checkFreeSlots()">View Slots</button>
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="checkFreeSlots()"
+    class="p-3"
+  >
+    View Slots
+  </button>
 </div>

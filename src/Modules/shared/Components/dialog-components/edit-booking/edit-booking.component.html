@@ -1,4 +1,7 @@
-<div class="container-fit" style="background-color: #289f69; color: white">
+<div
+  class="container-fit"
+  style="background-color: {{ backgroundColor }}; color: white"
+>
   <div class="image-container"><img [src]="imageUrl" [alt]="imageAlt" /></div>
 
   <div class="display-4 pb-3">{{ action | titlecase }} Booking</div>

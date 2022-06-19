@@ -20,12 +20,13 @@
 .text-block {
   position: absolute;
   width: 14rem;
-  transform: (-50%, -50%);
-  top: 75%;
-  left: 10%;
+  transform: translate(-50%, -50%);
+  top: 80%;
+  left: 50%;
   font-size: 2.5rem;
   color: white;
   cursor: pointer;
   text-align: center;
   letter-spacing: 2px;
+  line-height: 2rem;
 }
