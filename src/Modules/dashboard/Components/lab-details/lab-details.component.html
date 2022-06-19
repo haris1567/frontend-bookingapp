@@ -1,23 +1,35 @@
-<mat-card class="example-card">
-  <mat-card-title-group>
-    <mat-card-title>{{ labName }}</mat-card-title>
-    <mat-card-subtitle>Details</mat-card-subtitle>
-  </mat-card-title-group>
-  <mat-card-content>
-    <div class="row">
-      {{ labDetails }}
-    </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col content-container">
+      <span class="display-2 pb-3">Details</span>
 
-    <div class="row">
-      <button mat-raised-button color="basic" (click)="closeDialog(true)">
+      <div class="pb-3 display-7">{{ lab.details }}</div>
+
+      <div class="grid-container">
+        <ng-container *ngFor="let feature of labFeatures">
+          <div class="grid-item">
+            <img [src]="feature.url" [alt]="feature.name" />
+          </div>
+          <div class="grid-item">
+            <span>{{ feature.count }}</span>
+          </div>
+        </ng-container>
+      </div>
+
+      <button
+        class="pb-3"
+        mat-raised-button
+        color="accent"
+        (click)="closeDialog(true)"
+      >
         View Calender
       </button>
     </div>
-  </mat-card-content>
 
-  <div>
-    <img mat-card-xl-image src="src/assets/images/ccna_lab.jpg" />
+    <div class="col">
+      <img mat-card-xl-image [src]="lab.imageUrl" />
 
-    <span class="display-1">{{ labName }}</span>
+      <span class="display-1">{{ lab.name }}</span>
+    </div>
   </div>
-</mat-card>
+</div>

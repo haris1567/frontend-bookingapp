@@ -74,8 +74,13 @@ a {
 
 .display-7 {
   font-size: x-large;
+  line-height: 2rem;
 }
 
 .custom-container .mat-dialog-container {
   border-radius: 2rem !important;
+}
+
+.float-right {
+  float: right;
 }

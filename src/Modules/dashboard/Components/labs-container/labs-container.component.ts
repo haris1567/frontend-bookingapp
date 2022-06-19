@@ -16,7 +16,12 @@ export class LabsContainerComponent implements OnInit {
 
   labs: Lab[] = [
     { name: 'Library', id: 1, labId: 'library', details: '', imageUrl: 'assets/images/library.jpg' },
-    { name: 'CCNA Lab', id: 2, labId: 'ccna', details: 'CISCO Labs', imageUrl: 'assets/images/ccna_lab.jpg' },
+    {
+      name: 'CCNA Lab', id: 2, labId: 'ccna',
+      details: `Cisco certified network associate lab provides hand on skills on 
+        building simple LAN, configuring of routers and switches, and Configuring and troubleshooting 
+        connectivity of a small network, using security best-practices.`, imageUrl: 'assets/ccna_lab/ccna_lab_detail.jpg'
+    },
     { name: 'Comp Lab', id: 3, labId: 'comp', details: '', imageUrl: 'assets/images/comp_lab.jpg' },
     { name: 'Bio. Lab', id: 4, labId: 'bio', details: '', imageUrl: 'assets/images/bio_lab.jpg' },
     { name: 'Comm Lab', id: 5, labId: 'comm', details: '', imageUrl: 'assets/images/com_lab.jpg' },
@@ -42,8 +47,9 @@ export class LabsContainerComponent implements OnInit {
     } else {
 
       const dialogRef = this.dialog.open(LabDetailsComponent, {
-        width: '500px',
-        data: { lab: this.labs.find(lab => lab.labId == labId) }
+        width: "80vw",
+        minWidth: "80rem",
+        data: this.labs.find(lab => lab.labId == labId)
       });
 
       dialogRef.afterClosed().subscribe(result => {
