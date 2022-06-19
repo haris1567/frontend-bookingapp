@@ -4,6 +4,9 @@
 >
   <div class="image-container"><img [src]="imageUrl" [alt]="imageAlt" /></div>
 
+  <div class="display-7 p-3" *ngIf="action === bookingActions.createAction">
+    Step 1
+  </div>
   <div class="display-4 pb-3">{{ action | titlecase }} Booking</div>
 
   <div mat-dialog-content>
@@ -11,7 +14,18 @@
       <div class="input-item">
         <img [src]="calenderUrl" />
 
-        <ng-container *ngIf="action == bookingActions.editAction">
+        <ng-container *ngIf="action === bookingActions.createAction">
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Enter Title</mat-label>
+            <input matInput placeholder="Enter Title" />
+          </mat-form-field>
+        </ng-container>
+      </div>
+
+      <div class="input-item">
+        <img [src]="calenderUrl" />
+
+        <ng-container *ngIf="action !== bookingActions.deleteAction">
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Enter Date</mat-label>
             <input matInput [matDatepicker]="picker2" disabled />
@@ -31,7 +45,7 @@
 
       <div class="input-item">
         <img [src]="clockUrl" />
-        <ng-container *ngIf="action == bookingActions.editAction">
+        <ng-container *ngIf="action !== bookingActions.deleteAction">
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Enter Time</mat-label>
             <input matInput type="datetime-local" placeholder="start date" />

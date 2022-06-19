@@ -47,13 +47,12 @@ export class DatatableComponent implements OnInit, OnChanges {
   }
 
   openBookingChangeDialog(action: string, id: number) {
-    console.log({ action, id, editAction: this.editAction, deleteAction: this.deleteAction });
     const data: BookingActionInfo = {
       action, id
     }
     const dialogRef = this.dialog.open(EditBookingComponent, {
       width: "50%",
-      height: "70%",
+      height: "75%",
       minWidth: "40rem",
       minHeight: "40rem",
       data,

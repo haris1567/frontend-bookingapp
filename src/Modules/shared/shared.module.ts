@@ -2,7 +2,6 @@ import { NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationCardComponent } from './Components/notification-card/notification-card.component';
-import { ActionCardComponent } from './Components/action-card/action-card.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -32,8 +31,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LoaderComponent } from './Components/loader/loader.component';
 import { TitleWordComponent } from './Components/title-word/title-word.component';
 import { EditBookingComponent } from './Components/dialog-components/edit-booking/edit-booking.component';
+import { UserInfoInputComponent } from './Components/dialog-components/user-info-input/user-info-input.component';
+import { ConfirmationComponent } from './Components/dialog-components/confirmation/confirmation.component';
 
-const components = [NotificationCardComponent, ActionCardComponent, LoaderComponent, TitleWordComponent, EditBookingComponent];
+const components = [NotificationCardComponent, LoaderComponent, TitleWordComponent, EditBookingComponent];
 const modules = [
   MatDialogModule,
   DragDropModule,
@@ -65,7 +66,7 @@ const modules = [
 
 
 @NgModule({
-  declarations: [components],
+  declarations: [components, UserInfoInputComponent, ConfirmationComponent],
   imports: [
     CommonModule,
     LayoutModule,

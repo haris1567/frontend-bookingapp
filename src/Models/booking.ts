@@ -12,7 +12,9 @@ export interface Booking {
 export interface BookingActionInfo {
     action: string;
     id: number;
+    labName?: string;
     date?: Date;
+    title?: string;
 }
 
 export interface BookingEditInfo {
@@ -20,4 +22,14 @@ export interface BookingEditInfo {
     action: string;
     startTime?: Date;
     endTime?: Date;
+}
+
+export interface BookingEvent {
+    start: Date;
+    end: Date;
+    title: string;
+    email: string;
+    labId: number;
+    uid: string;
+    action?: string;
 }

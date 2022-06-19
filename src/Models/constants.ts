@@ -8,3 +8,7 @@ export const BOOKING_ACTION = {
     deleteAction: 'delete',
     createAction: 'create'
 }
+
+export const LAB_INFO = {
+    ccna: 1
+}

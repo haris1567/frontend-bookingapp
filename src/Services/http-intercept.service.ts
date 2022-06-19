@@ -37,7 +37,7 @@ export class HttpInterceptService implements HttpInterceptor {
       ).pipe(catchError(err => {
         if (err instanceof HttpErrorResponse) {
           let errorMessage = 'No Response from Server!';
-          console.log(err)
+
           if (err.error && err.status !== 0) {
 
             errorMessage = typeof err.error === 'object' ? err.error.error.message : err.error;

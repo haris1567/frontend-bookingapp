@@ -26,6 +26,8 @@ import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-compo
 import { MatDialog } from '@angular/material/dialog';
 import { BookingActionInfo } from 'src/Models/booking';
 import { BOOKING_ACTION } from 'src/Models/constants';
+import { UserInfoInputComponent } from 'src/Modules/shared/Components/dialog-components/user-info-input/user-info-input.component';
+import { BookingService } from 'src/Services/Booking-Service/booking.service';
 
 
 const colors: any = {
@@ -118,7 +120,8 @@ export class CalenderComponent implements OnInit {
 
   constructor(
     //private modal: NgbModal
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private bookingService: BookingService
   ) { }
 
   ngOnInit(): void {
@@ -162,7 +165,7 @@ export class CalenderComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    console.log(action, { event }, this.clickedDate);
+
     // this.modal.open(this.modalContent, { size: 'lg' });
   }
 
@@ -175,12 +178,32 @@ export class CalenderComponent implements OnInit {
     const dialogRef = this.dialog.open(EditBookingComponent, {
       data,
       width: "50%",
-      height: "70%",
+      height: "45rem",
       minWidth: "40rem",
-      minHeight: "40rem",
     });
 
-    dialogRef.afterClosed().subscribe(() => this.refresh.next());
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('BookingResult:', result);
+        const secondDialog = this.dialog.open(UserInfoInputComponent, {
+          data: result,
+          width: "50%",
+          height: "90%",
+          minWidth: "40rem",
+          minHeight: "40rem",
+        });
+        secondDialog.afterClosed().subscribe(bookingObject => {
+          if (bookingObject) {
+            console.log('BookingObject:', bookingObject);
+            this.bookingService.createBooking(bookingObject).subscribe((res) => {
+              if (res) {
+                console.log(res)
+              }
+            })
+          }
+        })
+      }
+    });
 
   }
 

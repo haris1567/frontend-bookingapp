@@ -12,12 +12,6 @@ export class UserService {
   users: string[] = [];
   constructor(private http: HttpClient) { }
 
-  getData() {
-    this.http.get(this.url)
-      .subscribe(data => {
-        console.log(data);
-      });
-  }
   getAllUsers(): Observable<any> {
     return this.http.get(this.apiUrl);
   }

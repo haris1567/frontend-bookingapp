@@ -1,0 +1,43 @@
+<div
+  class="container-fit"
+  style="background-color: {{ backgroundColor }}; color: white"
+>
+  <div class="image-container"><img [src]="imageUrl" [alt]="imageAlt" /></div>
+
+  <div class="display-7 p-3">Step 2</div>
+  <div class="display-4 pb-3">{{ action | titlecase }} Booking</div>
+
+  <div mat-dialog-content>
+    <div class="booking-time-container">
+      <div class="input-item">
+        <img [src]="personUrl" />
+
+        <ng-container *ngIf="action !== bookingActions.deleteAction">
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Enter UserID</mat-label>
+            <input matInput placeholder="Enter UserID" />
+          </mat-form-field>
+        </ng-container>
+      </div>
+
+      <div class="input-item">
+        <img [src]="emailUrl" />
+        <ng-container *ngIf="action !== bookingActions.deleteAction">
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Enter Email</mat-label>
+            <input matInput placeholder="Enter Email" />
+          </mat-form-field>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <mat-dialog-actions align="center">
+    <button mat-raised-button mat-dialog-close (click)="closeDialog()">
+      Cancel
+    </button>
+    <button mat-raised-button (click)="closeDialog(true)" cdkFocusInitial>
+      Confirm
+    </button>
+  </mat-dialog-actions>
+</div>

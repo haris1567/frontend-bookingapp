@@ -1,0 +1,34 @@
+<div
+  class="container-fit"
+  style="background-color: {{ backgroundColor }}; color: white"
+>
+  <div class="image-container"><img [src]="imageUrl" [alt]="imageAlt" /></div>
+
+  <div class="display-4 pb-3">Confirmation</div>
+
+  <div mat-dialog-content>
+    <ng-container *ngIf="action === bookingActions.createAction">
+      <div class="display-4 pb-3">{{ labName }}</div>
+      <div class="display-6">{{ event.start }} - {{ event.end }}</div>
+
+      <div class="display-6 pb-3">{{ event.start }}</div>
+
+      <div class="display-6">{{ event.uid }}</div>
+      <div class="display-6">{{ event.email }}</div>
+    </ng-container>
+
+    <ng-container *ngIf="action === bookingActions.editAction">
+      <div>The Booking Appointment has been Successfully Updated</div>
+    </ng-container>
+
+    <ng-container *ngIf="action === bookingActions.deleteAction">
+      <div>The Booking Appointment has been Successfully Deleted</div>
+    </ng-container>
+  </div>
+
+  <mat-dialog-actions align="center">
+    <button mat-raised-button mat-dialog-close (click)="closeDialog()">
+      Okay
+    </button>
+  </mat-dialog-actions>
+</div>

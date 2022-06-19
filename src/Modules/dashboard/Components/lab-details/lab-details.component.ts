@@ -48,7 +48,6 @@ export class LabDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.lab)
   }
 
   closeDialog(data: any): void {

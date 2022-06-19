@@ -13,7 +13,7 @@ import { NotificationAnimationType, Options, SimpleNotificationsModule } from 'a
 import { AuthGuard } from 'src/Guards/auth/auth.guard';
 
 const options: Options = {
-  position: ["bottom", "right"],
+  position: ["middle", "right"],
   timeOut: 2000,
   clickToClose: true,
   preventDuplicates: true,
