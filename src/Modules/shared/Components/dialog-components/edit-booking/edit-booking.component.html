@@ -12,7 +12,7 @@
   <div mat-dialog-content>
     <form [formGroup]="editForm" (ngSubmit)="closeDialog(true)">
       <div class="booking-time-container">
-        <div class="input-item">
+        <div class="input-item-{{ action }}">
           <img [src]="calenderUrl" />
 
           <ng-container *ngIf="action !== bookingActions.deleteAction">
@@ -33,12 +33,14 @@
             </mat-form-field>
           </ng-container>
 
-          <ng-container
-            *ngIf="action == bookingActions.deleteAction"
-          ></ng-container>
+          <ng-container *ngIf="action == bookingActions.deleteAction">
+            <span class="display-7 pb-3 w-100">
+              {{ data.startTime | date: "dd MMM (EEEE)" }}
+            </span>
+          </ng-container>
         </div>
 
-        <div class="input-item">
+        <div class="input-item-{{ action }}">
           <img [src]="clockUrl" />
           <ng-container *ngIf="action !== bookingActions.deleteAction">
             <mat-form-field color="accent" appearance="fill">
@@ -52,16 +54,19 @@
             </mat-form-field>
           </ng-container>
 
-          <ng-container
-            *ngIf="action == bookingActions.deleteAction"
-          ></ng-container>
+          <ng-container *ngIf="action == bookingActions.deleteAction">
+            <span class="display-7">
+              {{ data.startTime | date: "hh00" }} -
+              {{ data.endTime | date: "hh00" }}
+            </span></ng-container
+          >
         </div>
       </div>
     </form>
   </div>
 
   <mat-dialog-actions align="center">
-    <button mat-raised-button mat-dialog-close (click)="closeDialog()">
+    <button mat-raised-button mat-dialog-close (click)="closeDialog(false)">
       Cancel
     </button>
     <button mat-raised-button (click)="closeDialog(true)" cdkFocusInitial>

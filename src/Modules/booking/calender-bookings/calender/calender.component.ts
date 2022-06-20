@@ -83,6 +83,8 @@ export class CalenderComponent implements OnInit {
 
   bookings: Booking[] = [];
 
+  segmentHeight = 60;
+
   constructor(
     private dialog: MatDialog,
     private bookingService: BookingService
@@ -126,23 +128,6 @@ export class CalenderComponent implements OnInit {
     this.openCreateEventDialog();
   }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd,
-  }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map((iEvent) => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-        };
-      }
-      return iEvent;
-    });
-    this.handleEvent('Dropped or resized', event);
-  }
 
 
   handleEvent(action: string, event: CalendarEvent): void {

@@ -58,6 +58,7 @@
   </div>
 </div>
 <br />
+
 <div [ngSwitch]="view">
   <mwl-calendar-month-view
     *ngSwitchCase="CalendarView.Month"
@@ -67,7 +68,6 @@
     [activeDayIsOpen]="activeDayIsOpen"
     (dayClicked)="dayClicked($event.day)"
     (eventClicked)="handleEvent('Clicked', $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)"
   >
   </mwl-calendar-month-view>
   <mwl-calendar-week-view
@@ -76,12 +76,11 @@
     [events]="events"
     [refresh]="refresh"
     [hourSegments]="1"
-    [hourSegmentHeight]="60"
-    [minimumEventHeight]="60"
+    [hourSegmentHeight]="segmentHeight"
+    [minimumEventHeight]="segmentHeight"
     (eventClicked)="handleEvent('Clicked', $event.event)"
     (dayHeaderClicked)="clickedDate = $event.day.date; openCreateEventDialog()"
     (hourSegmentClicked)="clickedDate = $event.date; openCreateEventDialog()"
-    (eventTimesChanged)="eventTimesChanged($event)"
   >
   </mwl-calendar-week-view>
   <mwl-calendar-day-view
@@ -89,12 +88,11 @@
     [viewDate]="viewDate"
     [events]="events"
     [refresh]="refresh"
-    [hourSegmentHeight]="60"
-    [minimumEventHeight]="60"
+    [hourSegmentHeight]="segmentHeight"
+    [minimumEventHeight]="segmentHeight"
     [hourSegments]="1"
     (eventClicked)="handleEvent('Clicked', $event.event)"
     (hourSegmentClicked)="clickedDate = $event.date; openCreateEventDialog()"
-    (eventTimesChanged)="eventTimesChanged($event)"
   >
   </mwl-calendar-day-view>
 </div>

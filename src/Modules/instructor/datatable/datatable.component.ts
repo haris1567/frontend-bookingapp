@@ -53,8 +53,9 @@ export class DatatableComponent implements OnInit, OnChanges {
   }
 
   openBookingChangeDialog(action: string, id: number, labName: string) {
+    const booking = this.bookingInformation.find(booking => booking.id === id);
     const data: BookingEditInfo = {
-      action, id
+      action, id, startTime: booking?.startTime, endTime: booking?.endTime
     }
     const dialogRef = this.dialog.open(EditBookingComponent, {
       width: "50%",

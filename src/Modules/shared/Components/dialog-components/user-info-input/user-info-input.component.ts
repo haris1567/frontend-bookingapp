@@ -42,10 +42,11 @@ export class UserInfoInputComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  closeDialog(confirm?: boolean) {
+  closeDialog(confirm: boolean) {
 
     if (!confirm) {
       this.dialogRef.close();
+      return;
     }
 
     const title = this.userForm.controls['bookingTitle'].value;
