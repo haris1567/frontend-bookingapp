@@ -1,6 +1,5 @@
 import {
   Component,
-  ChangeDetectionStrategy,
   ViewChild,
   TemplateRef,
   OnInit,
@@ -8,15 +7,10 @@ import {
 import {
   startOfDay,
   endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
   addHours,
   subHours,
 } from 'date-fns';
-import { noop, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -26,7 +20,7 @@ import {
 import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-components/edit-booking/edit-booking.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Booking, BookingEditInfo, BookingEvent } from 'src/Models/booking';
-import { BOOKING_ACTION, LABNAMES, LAB_INFO } from 'src/Models/constants';
+import { BOOKING_ACTION, LABNAMES } from 'src/Models/constants';
 import { UserInfoInputComponent } from 'src/Modules/shared/Components/dialog-components/user-info-input/user-info-input.component';
 import { BookingService } from 'src/Services/Booking-Service/booking.service';
 import { ConfirmationComponent } from 'src/Modules/shared/Components/dialog-components/confirmation/confirmation.component';
@@ -85,35 +79,7 @@ export class CalenderComponent implements OnInit {
   ];
 
   // Events or Bookings Stored on Calender
-  events: CalendarEvent[] = [
-    {
-      start: addHours(startOfDay(new Date()), 1),
-      end: addHours(new Date(), 2),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 4),
-      end: addHours(new Date(), 5),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 6),
-      end: addHours(new Date(), 7),
-      title: 'Simple Event',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-  ];
+  events: CalendarEvent[] = [];
 
   bookings: Booking[] = [];
 
@@ -180,9 +146,6 @@ export class CalenderComponent implements OnInit {
 
 
   handleEvent(action: string, event: CalendarEvent): void {
-    console.log({ event, action });
-
-
     this.dialog.open(ViewBookingComponent, {
       width: "50rem",
       height: "45rem",
@@ -242,27 +205,8 @@ export class CalenderComponent implements OnInit {
     }
   }
 
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
-  }
 
 
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
-  }
 
   setView(view: CalendarView) {
     this.view = view;
