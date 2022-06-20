@@ -26,10 +26,11 @@ import {
 import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-components/edit-booking/edit-booking.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Booking, BookingEditInfo, BookingEvent } from 'src/Models/booking';
-import { BOOKING_ACTION, LABNAMES } from 'src/Models/constants';
+import { BOOKING_ACTION, LABNAMES, LAB_INFO } from 'src/Models/constants';
 import { UserInfoInputComponent } from 'src/Modules/shared/Components/dialog-components/user-info-input/user-info-input.component';
 import { BookingService } from 'src/Services/Booking-Service/booking.service';
 import { ConfirmationComponent } from 'src/Modules/shared/Components/dialog-components/confirmation/confirmation.component';
+import { ViewBookingComponent } from 'src/Modules/shared/Components/dialog-components/view-booking/view-booking.component';
 
 
 const colors: any = {
@@ -114,9 +115,9 @@ export class CalenderComponent implements OnInit {
     },
   ];
 
+  bookings: Booking[] = [];
 
   constructor(
-    //private modal: NgbModal
     private dialog: MatDialog,
     private bookingService: BookingService
   ) {
@@ -130,23 +131,24 @@ export class CalenderComponent implements OnInit {
 
     this.bookingService.getAllBookings().subscribe(response => {
       console.log('Response:', response);
+      this.bookings = response;
       this.mapBookingEventToCalenderEvent(response);
     });
   }
 
   mapBookingEventToCalenderEvent(bookingEvents: Booking[]): void {
 
-    this.events = bookingEvents.map(({ startTime, endTime, title, uid }) => {
+    this.events = bookingEvents.map(({ startTime, endTime, title, uid, id }) => {
       let start = new Date(startTime);
-      let localDiffHours = start.getTimezoneOffset() / 60;
-      let endSum
       let end = new Date(endTime);
+      let localDiffHours = start.getTimezoneOffset() / 60;
+
 
       start = localDiffHours > 0 ? subHours(start, Math.abs(localDiffHours)) : addHours(start, Math.abs(localDiffHours));
       end = localDiffHours > 0 ? subHours(end, Math.abs(localDiffHours)) : addHours(end, Math.abs(localDiffHours));
 
       return {
-        start, end, title: `${title} - ${uid}`, color: colors.red, actions: this.actions
+        id, start, end, title: `${title} - ${uid}`, color: colors.red, actions: this.actions
       }
 
     });
@@ -156,18 +158,6 @@ export class CalenderComponent implements OnInit {
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     this.clickedDate = date;
     this.openCreateEventDialog();
-    // if (isSameMonth(date, this.viewDate)) {
-    //   if (
-    //     (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-    //     events.length === 0
-    //   ) {
-    //     this.activeDayIsOpen = false;
-
-    //   } else {
-    //     // this.activeDayIsOpen = true;
-    //   }
-    //   this.viewDate = date;
-    // }
   }
 
   eventTimesChanged({
@@ -191,6 +181,13 @@ export class CalenderComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     console.log({ event, action });
+
+
+    this.dialog.open(ViewBookingComponent, {
+      width: "50rem",
+      height: "45rem",
+      data: this.bookings.find(booking => booking.id === event.id)
+    });
   }
 
   openCreateEventDialog(): void {

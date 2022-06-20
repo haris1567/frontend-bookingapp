@@ -10,11 +10,11 @@
     <ng-container *ngIf="action === bookingActions.createAction && event">
       <div class="display-4 pb-3">{{ labName }}</div>
       <div class="display-7">
-        {{ event.start | date: "hh00" }} - {{ event.end | date: "hh00" }}
+        Time: {{ event.start | date: "hh00" }} - {{ event.end | date: "hh00" }}
       </div>
 
       <div class="display-7 pb-3 w-100">
-        {{ event.start | date: "dd MMM (EEEE)" }}
+        Date: {{ event.start | date: "dd MMM (EEEE)" }}
       </div>
 
       <div class="display-7">{{ event.uid }}</div>

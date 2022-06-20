@@ -1,0 +1,33 @@
+<div
+  class="container-fit"
+  style="background-color: {{ backgroundColor }}; color: white"
+>
+  <div class="image-container"><img [src]="imageUrl" [alt]="imageAlt" /></div>
+
+  <div class="display-4 pb-3">Booking Detail</div>
+
+  <div mat-dialog-content>
+    <ng-container *ngIf="event">
+      <div class="display-4 pb-3">{{ labName }}</div>
+      <div class="display-7 pb-3">Title: {{ event.title }}</div>
+      <div class="display-7">
+        Time:
+        {{ event.startTime | date: "hh00" }} -
+        {{ event.endTime | date: "hh00" }}
+      </div>
+
+      <div class="display-7 pb-3">
+        Date:
+        {{ event.startTime | date: "dd MMM (EEEE)" }}
+      </div>
+
+      <div class="display-7">{{ event.uid }}</div>
+    </ng-container>
+  </div>
+
+  <mat-dialog-actions align="center">
+    <button mat-raised-button mat-dialog-close (click)="closeDialog()">
+      Okay
+    </button>
+  </mat-dialog-actions>
+</div>

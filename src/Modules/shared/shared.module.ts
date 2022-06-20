@@ -33,6 +33,7 @@ import { TitleWordComponent } from './Components/title-word/title-word.component
 import { EditBookingComponent } from './Components/dialog-components/edit-booking/edit-booking.component';
 import { UserInfoInputComponent } from './Components/dialog-components/user-info-input/user-info-input.component';
 import { ConfirmationComponent } from './Components/dialog-components/confirmation/confirmation.component';
+import { ViewBookingComponent } from './Components/dialog-components/view-booking/view-booking.component';
 
 const components = [NotificationCardComponent, LoaderComponent, TitleWordComponent, EditBookingComponent];
 const modules = [
@@ -66,7 +67,7 @@ const modules = [
 
 
 @NgModule({
-  declarations: [components, UserInfoInputComponent, ConfirmationComponent],
+  declarations: [components, UserInfoInputComponent, ConfirmationComponent, ViewBookingComponent],
   imports: [
     CommonModule,
     LayoutModule,
