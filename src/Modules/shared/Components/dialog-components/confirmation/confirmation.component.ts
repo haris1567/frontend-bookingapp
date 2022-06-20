@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BookingActionInfo, BookingEvent } from 'src/Models/booking';
+import { BookingEditInfo, BookingEvent } from 'src/Models/booking';
 import { BOOKING_ACTION } from 'src/Models/constants';
 
 @Component({
@@ -18,7 +18,7 @@ export class ConfirmationComponent implements OnInit {
   labName = '';
   event: BookingEvent | undefined;
 
-  constructor(public dialogRef: MatDialogRef<ConfirmationComponent>, @Inject(MAT_DIALOG_DATA) public data: { event?: BookingEvent, actionInfo: BookingActionInfo }) {
+  constructor(public dialogRef: MatDialogRef<ConfirmationComponent>, @Inject(MAT_DIALOG_DATA) public data: { event?: BookingEvent, actionInfo: BookingEditInfo }) {
 
     const { event, actionInfo } = this.data;
     this.event = event;

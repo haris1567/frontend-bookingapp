@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Booking, BookingActionInfo, BookingEditInfo, BookingEvent } from 'src/Models/booking';
+import { BookingEditInfo, BookingEvent } from 'src/Models/booking';
 import { BOOKING_ACTION, LAB_INFO } from 'src/Models/constants';
 
 @Component({
@@ -20,16 +21,21 @@ export class UserInfoInputComponent implements OnInit {
 
   editInfo: BookingEvent | undefined;
   backgroundColor = '';
-
+  userForm: FormGroup;
   bookingActions = BOOKING_ACTION;
 
-  constructor(public dialogRef: MatDialogRef<UserInfoInputComponent>, @Inject(MAT_DIALOG_DATA) public data: BookingActionInfo, private router: Router) {
+  constructor(public dialogRef: MatDialogRef<UserInfoInputComponent>, @Inject(MAT_DIALOG_DATA) public data: BookingEditInfo,
+    private router: Router, private fb: FormBuilder,) {
     this.action = data.action;
     this.imageUrl = `assets/images/${data.action}.png`;
     this.backgroundColor = this.action === BOOKING_ACTION.createAction ? '#00535d' : '#289f69';
 
     const labName = this.router.url.slice(this.router.url.lastIndexOf('/'));
-    console.log(this.router.url, labName);
+    this.userForm = this.fb.group({
+      bookingTitle: ['', Validators.required],
+      userId: ['', Validators.required],
+      email: ['', Validators.required]
+    });
   }
 
 
@@ -42,14 +48,20 @@ export class UserInfoInputComponent implements OnInit {
       this.dialogRef.close();
     }
 
+    const title = this.userForm.controls['bookingTitle'].value;
+    const uid = this.userForm.controls['userId'].value;
+    const email = this.userForm.controls['email'].value;
+
     this.editInfo = {
-      start: new Date(),
-      end: new Date(),
+      start: this.data.startTime ?? new Date(),
+      end: this.data.endTime ?? new Date(),
       labId: LAB_INFO.ccna,
-      title: '',
-      email: '',
-      uid: '',
+      title,
+      email,
+      uid
     }
+
+    this.dialogRef.close(this.editInfo);
 
   }
 

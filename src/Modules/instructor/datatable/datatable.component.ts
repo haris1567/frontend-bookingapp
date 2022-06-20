@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Booking, BookingActionInfo, BookingEditInfo } from 'src/Models/booking';
+import { Booking, BookingEditInfo } from 'src/Models/booking';
 import { BOOKING_ACTION } from 'src/Models/constants';
 import { ConfirmationComponent } from 'src/Modules/shared/Components/dialog-components/confirmation/confirmation.component';
 import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-components/edit-booking/edit-booking.component';
@@ -49,7 +49,7 @@ export class DatatableComponent implements OnInit, OnChanges {
   }
 
   openBookingChangeDialog(action: string, id: number, labName: string) {
-    const data: BookingActionInfo = {
+    const data: BookingEditInfo = {
       action, id
     }
     const dialogRef = this.dialog.open(EditBookingComponent, {

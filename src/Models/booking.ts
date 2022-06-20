@@ -9,19 +9,13 @@ export interface Booking {
     dateAdded: Date;
 }
 
-export interface BookingActionInfo {
-    action: string;
-    id: number;
-    labName?: string;
-    date?: Date;
-    title?: string;
-}
-
 export interface BookingEditInfo {
     id: number;
     action: string;
     startTime?: Date;
     endTime?: Date;
+    labName?: string;
+    title?: string;
 }
 
 export interface BookingEvent {

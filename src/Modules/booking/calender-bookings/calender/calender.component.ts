@@ -24,7 +24,7 @@ import {
 } from 'angular-calendar';
 import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-components/edit-booking/edit-booking.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Booking, BookingActionInfo, BookingEvent } from 'src/Models/booking';
+import { Booking, BookingEditInfo, BookingEvent } from 'src/Models/booking';
 import { BOOKING_ACTION, LABNAMES } from 'src/Models/constants';
 import { UserInfoInputComponent } from 'src/Modules/shared/Components/dialog-components/user-info-input/user-info-input.component';
 import { BookingService } from 'src/Services/Booking-Service/booking.service';
@@ -177,16 +177,16 @@ export class CalenderComponent implements OnInit {
   }
 
   openCreateEventDialog(): void {
-    const data: BookingActionInfo = {
+    const data: BookingEditInfo = {
       action: BOOKING_ACTION.createAction,
       id: 0,
-      date: this.clickedDate,
+      startTime: this.clickedDate,
       labName: LABNAMES.ccna
     }
     const dialogRef = this.dialog.open(EditBookingComponent, {
       data,
       width: "50%",
-      height: "45rem",
+      height: "40rem",
       minWidth: "40rem",
     });
 
@@ -198,7 +198,7 @@ export class CalenderComponent implements OnInit {
           width: "50%",
           height: "90%",
           minWidth: "40rem",
-          minHeight: "40rem",
+          minHeight: "45rem",
         });
         secondDialog.afterClosed().subscribe((bookingObject: BookingEvent) => {
           this.sendBookingData(data, bookingObject)
@@ -208,7 +208,7 @@ export class CalenderComponent implements OnInit {
   }
 
 
-  private sendBookingData(actionInfo: BookingActionInfo, event: BookingEvent): void {
+  private sendBookingData(actionInfo: BookingEditInfo, event: BookingEvent): void {
     if (event) {
       console.log('BookingObject:', event);
       this.bookingService.createBooking(event).subscribe((response) => {
