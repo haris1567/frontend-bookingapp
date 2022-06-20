@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { format, parseISO } from 'date-fns';
+import { addHours, format, parseISO } from 'date-fns';
 import { BookingEditInfo } from 'src/Models/booking';
-import { BOOKING_ACTION } from 'src/Models/constants';
+import { BOOKING_ACTION, DATE_TIME_FORMAT } from 'src/Models/constants';
 
 @Component({
   selector: 'app-edit-booking',
@@ -29,12 +29,12 @@ export class EditBookingComponent implements OnInit {
     this.imageUrl = `assets/images/${data.action}.png`;
     this.backgroundColor = this.action === BOOKING_ACTION.createAction ? '#00535d' : '#289f69';
 
-    const startDate = format(new Date(data.startTime as Date), "yyyy-MM-dd'T'HH:mm:ss")
-
+    const startDate = format(new Date(data.startTime as Date), DATE_TIME_FORMAT)
+    const endDate = format(addHours(new Date(this.data.startTime as Date), 1), DATE_TIME_FORMAT);
     this.editForm = this.fb.group({
       bookingDate: [data.startTime, Validators.required],
       bookingStartTime: [startDate, Validators.required],
-      bookingEndTime: ['', Validators.required]
+      bookingEndTime: [endDate, Validators.required]
     });
   }
 

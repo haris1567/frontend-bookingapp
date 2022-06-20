@@ -16,3 +16,5 @@ export const LAB_INFO = {
 export const LABNAMES = {
     ccna: 'CCNA LAB'
 }
+
+export const DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";

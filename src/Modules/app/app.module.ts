@@ -14,8 +14,9 @@ import { AuthGuard } from 'src/Guards/auth/auth.guard';
 
 const options: Options = {
   position: ["middle", "right"],
-  timeOut: 2000,
+  timeOut: 4000,
   clickToClose: true,
+  pauseOnHover: true,
   preventDuplicates: true,
   animate: NotificationAnimationType.FromRight
 };
