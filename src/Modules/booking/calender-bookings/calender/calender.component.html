@@ -1,15 +1,16 @@
 <div class="row text-center">
   <div class="col-md-4">
     <div class="btn-group">
-      <div
+      <button
         class="btn btn-primary"
         mwlCalendarPreviousView
         [view]="view"
         [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()"
+        [disabled]="prevBtnDisabled"
       >
         Previous
-      </div>
+      </button>
       <div
         class="btn btn-outline-secondary"
         mwlCalendarToday
@@ -17,15 +18,16 @@
       >
         Today
       </div>
-      <div
+      <button
         class="btn btn-primary"
         mwlCalendarNextView
         [view]="view"
         [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()"
+        [disabled]="nextBtnDisabled"
       >
         Next
-      </div>
+      </button>
     </div>
   </div>
   <div class="col-md-4">
@@ -68,6 +70,7 @@
     [activeDayIsOpen]="activeDayIsOpen"
     (dayClicked)="dayClicked($event.day)"
     (eventClicked)="handleEvent('Clicked', $event.event)"
+    (beforeViewRender)="beforeMonthViewRender($event)"
   >
   </mwl-calendar-month-view>
   <mwl-calendar-week-view

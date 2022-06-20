@@ -3,18 +3,29 @@ import {
   ViewChild,
   TemplateRef,
   OnInit,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   startOfDay,
   endOfDay,
   addHours,
   subHours,
+  subMonths,
+  addMonths,
+  addDays,
+  addWeeks,
+  endOfMonth,
+  endOfWeek,
+  startOfMonth,
+  startOfWeek,
+  subDays,
+  subWeeks,
 } from 'date-fns';
 import { Subject } from 'rxjs';
 import {
   CalendarEvent,
   CalendarEventAction,
-  CalendarEventTimesChangedEvent,
+  CalendarMonthViewDay,
   CalendarView,
 } from 'angular-calendar';
 import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-components/edit-booking/edit-booking.component';
@@ -42,10 +53,42 @@ const colors: any = {
   },
 };
 
+function addPeriod(period: CalendarView, date: Date, amount: number): Date {
+  return {
+    day: addDays,
+    week: addWeeks,
+    month: addMonths,
+  }[period](date, amount);
+}
+
+function subPeriod(period: CalendarView, date: Date, amount: number): Date {
+  return {
+    day: subDays,
+    week: subWeeks,
+    month: subMonths,
+  }[period](date, amount);
+}
+
+function startOfPeriod(period: CalendarView, date: Date): Date {
+  return {
+    day: startOfDay,
+    week: startOfWeek,
+    month: startOfMonth,
+  }[period](date);
+}
+
+function endOfPeriod(period: CalendarView, date: Date): Date {
+  return {
+    day: endOfDay,
+    week: endOfWeek,
+    month: endOfMonth,
+  }[period](date);
+}
 @Component({
   selector: 'app-calender',
   templateUrl: './calender.component.html',
-  styleUrls: ['./calender.component.scss']
+  styleUrls: ['./calender.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CalenderComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any> | undefined;
@@ -78,6 +121,14 @@ export class CalenderComponent implements OnInit {
     },
   ];
 
+  minDate: Date = subDays(new Date(), 1);
+
+  maxDate: Date = addMonths(new Date(), 1);
+
+  prevBtnDisabled: boolean = false;
+
+  nextBtnDisabled: boolean = false;
+
   // Events or Bookings Stored on Calender
   events: CalendarEvent[] = [];
 
@@ -103,6 +154,11 @@ export class CalenderComponent implements OnInit {
       this.mapBookingEventToCalenderEvent(response);
     });
   }
+
+  dateIsValid(date: Date): boolean {
+    return date >= this.minDate && date <= this.maxDate;
+  }
+
 
   mapBookingEventToCalenderEvent(bookingEvents: Booking[]): void {
 
@@ -195,9 +251,39 @@ export class CalenderComponent implements OnInit {
 
   setView(view: CalendarView) {
     this.view = view;
+    this.dateOrViewChanged();
+  }
+
+  dateOrViewChanged(): void {
+    this.prevBtnDisabled = !this.dateIsValid(
+      endOfPeriod(this.view, subPeriod(this.view, this.viewDate, 1))
+    );
+    this.nextBtnDisabled = !this.dateIsValid(
+      startOfPeriod(this.view, addPeriod(this.view, this.viewDate, 1))
+    );
+    console.log({ prev: this.prevBtnDisabled, next: this.nextBtnDisabled })
+    if (this.viewDate < this.minDate) {
+      this.changeDate(this.minDate);
+    } else if (this.viewDate > this.maxDate) {
+      this.changeDate(this.maxDate);
+    }
+  }
+
+  changeDate(date: Date): void {
+    this.viewDate = date;
+    this.dateOrViewChanged();
+  }
+
+  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+    body.forEach((day) => {
+      if (!this.dateIsValid(day.date)) {
+        day.cssClass = 'cal-disabled';
+      }
+    });
   }
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+    this.dateOrViewChanged();
   }
 }
