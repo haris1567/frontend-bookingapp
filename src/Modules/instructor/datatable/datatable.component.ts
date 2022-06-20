@@ -1,9 +1,11 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Booking, BookingActionInfo } from 'src/Models/booking';
+import { Booking, BookingActionInfo, BookingEditInfo } from 'src/Models/booking';
 import { BOOKING_ACTION } from 'src/Models/constants';
+import { ConfirmationComponent } from 'src/Modules/shared/Components/dialog-components/confirmation/confirmation.component';
 import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-components/edit-booking/edit-booking.component';
+import { BookingService } from 'src/Services/Booking-Service/booking.service';
 
 @Component({
   selector: 'app-datatable',
@@ -21,7 +23,7 @@ export class DatatableComponent implements OnInit, OnChanges {
   deleteAction = BOOKING_ACTION.deleteAction;
   editAction = BOOKING_ACTION.editAction;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private bookingService: BookingService) { }
   ngOnChanges(changes: SimpleChanges): void {
 
     const info = changes['bookingInformation'].currentValue;
@@ -46,7 +48,7 @@ export class DatatableComponent implements OnInit, OnChanges {
     })));
   }
 
-  openBookingChangeDialog(action: string, id: number) {
+  openBookingChangeDialog(action: string, id: number, labName: string) {
     const data: BookingActionInfo = {
       action, id
     }
@@ -56,11 +58,51 @@ export class DatatableComponent implements OnInit, OnChanges {
       minWidth: "40rem",
       minHeight: "40rem",
       data,
-
     });
 
-    dialogRef.afterClosed().subscribe(result => console.log(result));
+    dialogRef.afterClosed().subscribe((result: BookingEditInfo) => {
+      if (result) {
+        this.editBooking(result, labName);
+      }
+    });
 
+  }
+
+  editBooking(actionInfo: BookingEditInfo, labName: string): void {
+
+    if (actionInfo.action === BOOKING_ACTION.editAction) {
+      this.bookingService.getBookingById(actionInfo.id).subscribe(({ id, labId, title, userId, uid, dateAdded }: Booking) => {
+        const booking: Booking = {
+          id,
+          labId,
+          title,
+          userId,
+          uid,
+          dateAdded,
+          startTime: actionInfo.startTime ?? new Date(),
+          endTime: actionInfo.endTime ?? new Date()
+        }
+
+        this.bookingService.updateBooking(booking).subscribe(() => this.openConfirmationDialog(actionInfo, labName));
+      });
+
+    }
+    else {
+      this.bookingService.deteletBooking(actionInfo.id).subscribe(() => this.openConfirmationDialog(actionInfo, labName));
+    }
+  }
+
+  openConfirmationDialog(actionInfo: BookingEditInfo, labName: string): void {
+
+    this.dialog.open(ConfirmationComponent, {
+      minWidth: "40rem",
+      height: "30rem",
+      data: {
+        actionInfo: {
+          ...actionInfo, labName
+        }
+      }
+    });
   }
 
   applyFilter(event: Event) {

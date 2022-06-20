@@ -72,7 +72,9 @@
         <button
           mat-mini-fab
           color="primary"
-          (click)="openBookingChangeDialog(editAction, element.id)"
+          (click)="
+            openBookingChangeDialog(editAction, element.id, element.labName)
+          "
         >
           <mat-icon>edit</mat-icon>
         </button>
@@ -80,7 +82,9 @@
         <button
           mat-mini-fab
           color="warn"
-          (click)="openBookingChangeDialog(deleteAction, element.id)"
+          (click)="
+            openBookingChangeDialog(deleteAction, element.id, element.labName)
+          "
         >
           <mat-icon>delete</mat-icon>
         </button>

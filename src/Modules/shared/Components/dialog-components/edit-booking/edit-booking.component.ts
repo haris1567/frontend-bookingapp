@@ -30,8 +30,13 @@ export class EditBookingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  closeDialog() {
-    this.dialogRef.close();
+  closeDialog(confirm?: boolean) {
+    if (!confirm) {
+      this.dialogRef.close();
+    }
+
+    this.dialogRef.close(this.editInfo);
+
   }
 
 }

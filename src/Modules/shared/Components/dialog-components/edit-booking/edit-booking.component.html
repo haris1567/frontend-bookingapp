@@ -11,10 +11,10 @@
 
   <div mat-dialog-content>
     <div class="booking-time-container">
-      <div class="input-item">
+      <div class="input-item" *ngIf="action === bookingActions.createAction">
         <img [src]="calenderUrl" />
 
-        <ng-container *ngIf="action === bookingActions.createAction">
+        <ng-container>
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Enter Title</mat-label>
             <input matInput placeholder="Enter Title" />
@@ -63,7 +63,7 @@
     <button mat-raised-button mat-dialog-close (click)="closeDialog()">
       Cancel
     </button>
-    <button mat-raised-button [mat-dialog-close]="editInfo" cdkFocusInitial>
+    <button mat-raised-button (click)="closeDialog(true)" cdkFocusInitial>
       Confirm
     </button>
   </mat-dialog-actions>

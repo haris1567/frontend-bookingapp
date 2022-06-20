@@ -15,7 +15,7 @@ import {
   isSameMonth,
   addHours,
 } from 'date-fns';
-import { Subject } from 'rxjs';
+import { noop, Subject } from 'rxjs';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -24,10 +24,11 @@ import {
 } from 'angular-calendar';
 import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-components/edit-booking/edit-booking.component';
 import { MatDialog } from '@angular/material/dialog';
-import { BookingActionInfo } from 'src/Models/booking';
-import { BOOKING_ACTION } from 'src/Models/constants';
+import { Booking, BookingActionInfo, BookingEvent } from 'src/Models/booking';
+import { BOOKING_ACTION, LABNAMES } from 'src/Models/constants';
 import { UserInfoInputComponent } from 'src/Modules/shared/Components/dialog-components/user-info-input/user-info-input.component';
 import { BookingService } from 'src/Services/Booking-Service/booking.service';
+import { ConfirmationComponent } from 'src/Modules/shared/Components/dialog-components/confirmation/confirmation.component';
 
 
 const colors: any = {
@@ -63,12 +64,6 @@ export class CalenderComponent implements OnInit {
 
   refresh = new Subject<void>();
 
-
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  } | undefined;
-
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -90,27 +85,28 @@ export class CalenderComponent implements OnInit {
   // Events or Bookings Stored on Calender
   events: CalendarEvent[] = [
     {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
+      start: addHours(startOfDay(new Date()), 1),
+      end: addHours(new Date(), 2),
       title: 'A 3 day event',
       color: colors.red,
       actions: this.actions,
     },
     {
-      start: startOfDay(new Date()),
+      start: addHours(startOfDay(new Date()), 4),
+      end: addHours(new Date(), 5),
       title: 'An event with no end date',
       color: colors.yellow,
       actions: this.actions,
     },
     {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
+      start: addHours(startOfDay(new Date()), 2),
+      end: addHours(new Date(), 3),
       title: 'A long event that spans 2 months',
       color: colors.blue,
     },
     {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
+      start: addHours(startOfDay(new Date()), 6),
+      end: addHours(new Date(), 7),
       title: 'Simple Event',
       color: colors.yellow,
       actions: this.actions,
@@ -122,9 +118,22 @@ export class CalenderComponent implements OnInit {
     //private modal: NgbModal
     private dialog: MatDialog,
     private bookingService: BookingService
-  ) { }
+  ) {
+
+    this.bookingService.getAllBookings().subscribe(response => {
+      console.log('Response:', response);
+      this.mapBookingEventToCalenderEvent(response);
+    })
+  }
 
   ngOnInit(): void {
+  }
+
+  mapBookingEventToCalenderEvent(bookingEvents: Booking[]): void {
+    this.events = bookingEvents.map(({ startTime, endTime, title, uid }) => ({
+      start: new Date(startTime), end: new Date(endTime), title: `${title} - ${uid}`, color: colors.red, actions: this.actions
+    }));
+    this.refresh.next();
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -164,16 +173,15 @@ export class CalenderComponent implements OnInit {
 
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-
-    // this.modal.open(this.modalContent, { size: 'lg' });
+    console.log({ event, action });
   }
 
   openCreateEventDialog(): void {
     const data: BookingActionInfo = {
       action: BOOKING_ACTION.createAction,
       id: 0,
-      date: this.clickedDate
+      date: this.clickedDate,
+      labName: LABNAMES.ccna
     }
     const dialogRef = this.dialog.open(EditBookingComponent, {
       data,
@@ -192,19 +200,34 @@ export class CalenderComponent implements OnInit {
           minWidth: "40rem",
           minHeight: "40rem",
         });
-        secondDialog.afterClosed().subscribe(bookingObject => {
-          if (bookingObject) {
-            console.log('BookingObject:', bookingObject);
-            this.bookingService.createBooking(bookingObject).subscribe((res) => {
-              if (res) {
-                console.log(res)
-              }
-            })
-          }
+        secondDialog.afterClosed().subscribe((bookingObject: BookingEvent) => {
+          this.sendBookingData(data, bookingObject)
         })
       }
     });
+  }
 
+
+  private sendBookingData(actionInfo: BookingActionInfo, event: BookingEvent): void {
+    if (event) {
+      console.log('BookingObject:', event);
+      this.bookingService.createBooking(event).subscribe((response) => {
+        if (response) {
+          const dialogRefConfirm = this.dialog.open(ConfirmationComponent, {
+            width: "50rem",
+            height: "40rem",
+            data: {
+              actionInfo,
+              event
+            }
+          });
+
+          dialogRefConfirm.afterClosed().subscribe(confirmation => {
+            console.log({ confirmation });
+          })
+        }
+      });
+    }
   }
 
   addEvent(): void {

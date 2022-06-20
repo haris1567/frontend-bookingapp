@@ -12,3 +12,7 @@ export const BOOKING_ACTION = {
 export const LAB_INFO = {
     ccna: 1
 }
+
+export const LABNAMES = {
+    ccna: 'CCNA LAB'
+}

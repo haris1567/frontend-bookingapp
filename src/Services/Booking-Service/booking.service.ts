@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Booking } from 'src/Models/booking';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,8 @@ export class BookingService {
     return this.http.get(this.apiUrl + `/${id}`);
   }
 
-  updateBooking(booking: any, userId: number): Observable<any> {
-    return this.http.put(this.apiUrl + `/${booking.Id}`, booking);
+  updateBooking(booking: Booking): Observable<any> {
+    return this.http.put(this.apiUrl + `/${booking.id}`, booking);
   }
 
   deteletBooking(id: number): Observable<any> {

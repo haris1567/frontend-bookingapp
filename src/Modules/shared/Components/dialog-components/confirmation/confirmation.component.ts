@@ -16,9 +16,9 @@ export class ConfirmationComponent implements OnInit {
 
   bookingActions = BOOKING_ACTION;
   labName = '';
-  event: BookingEvent;
+  event: BookingEvent | undefined;
 
-  constructor(public dialogRef: MatDialogRef<ConfirmationComponent>, @Inject(MAT_DIALOG_DATA) public data: { event: BookingEvent, actionInfo: BookingActionInfo }) {
+  constructor(public dialogRef: MatDialogRef<ConfirmationComponent>, @Inject(MAT_DIALOG_DATA) public data: { event?: BookingEvent, actionInfo: BookingActionInfo }) {
 
     const { event, actionInfo } = this.data;
     this.event = event;
