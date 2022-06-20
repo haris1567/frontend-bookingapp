@@ -61,6 +61,7 @@ export class UserInfoInputComponent implements OnInit {
       uid
     }
 
+    console.log('Edit Info', this.editInfo)
     this.dialogRef.close(this.editInfo);
 
   }

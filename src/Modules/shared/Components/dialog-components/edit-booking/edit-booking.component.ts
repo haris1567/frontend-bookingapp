@@ -31,7 +31,8 @@ export class EditBookingComponent implements OnInit {
 
     this.editForm = this.fb.group({
       bookingDate: [data.startTime, Validators.required],
-      bookingTime: [data.startTime, Validators.required]
+      bookingStartTime: [data.startTime, Validators.required],
+      bookingEndTime: [data.startTime, Validators.required]
     });
   }
 
@@ -43,8 +44,8 @@ export class EditBookingComponent implements OnInit {
       this.dialogRef.close();
     }
 
-    const startTime = new Date();
-    const endTime = new Date();
+    const startTime = new Date(this.editForm.controls['bookingStartTime'].value);
+    const endTime = new Date(this.editForm.controls['bookingEndTime'].value);
 
     this.editInfo = {
       ...this.editInfo,

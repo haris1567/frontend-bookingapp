@@ -16,7 +16,11 @@
           <ng-container>
             <mat-form-field color="accent" appearance="fill">
               <mat-label>Enter Booking Title</mat-label>
-              <input matInput placeholder="Enter Title" />
+              <input
+                matInput
+                placeholder="Enter Title"
+                formControlName="bookingTitle"
+              />
             </mat-form-field>
           </ng-container>
         </div>
@@ -27,7 +31,11 @@
           <ng-container *ngIf="action !== bookingActions.deleteAction">
             <mat-form-field color="accent" appearance="fill">
               <mat-label>Enter UserID</mat-label>
-              <input matInput placeholder="Enter UserID" />
+              <input
+                matInput
+                placeholder="Enter UserID"
+                formControlName="userId"
+              />
             </mat-form-field>
           </ng-container>
         </div>
@@ -37,7 +45,11 @@
           <ng-container *ngIf="action !== bookingActions.deleteAction">
             <mat-form-field color="accent" appearance="fill">
               <mat-label>Enter Email</mat-label>
-              <input matInput placeholder="Enter Email" />
+              <input
+                matInput
+                placeholder="Enter Email"
+                formControlName="email"
+              />
             </mat-form-field>
           </ng-container>
         </div>

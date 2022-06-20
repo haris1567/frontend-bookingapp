@@ -12,12 +12,15 @@ export class InstructorComponent implements OnInit {
   bookingInformation: Booking[] = [];
 
   constructor(private bookingService: BookingService) {
-    this.bookingService.getAllBookings().subscribe(response => {
-      this.bookingInformation = response;
-    })
+    this.getBookings();
   }
 
   ngOnInit(): void {
   }
 
+  getBookings(): void {
+    this.bookingService.getAllBookings().subscribe(response => {
+      this.bookingInformation = response;
+    })
+  }
 }

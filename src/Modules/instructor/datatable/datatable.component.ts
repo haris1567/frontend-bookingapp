@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Booking, BookingEditInfo } from 'src/Models/booking';
@@ -16,6 +16,10 @@ export class DatatableComponent implements OnInit, OnChanges {
 
   @Input()
   bookingInformation: Booking[] = [];
+
+  @Output()
+  refreshBookings = new EventEmitter();
+
   displayedColumns: string[] = ['id', 'date', 'title', 'time', 'labName', 'uid', 'dateAdded', 'actions'];
 
   public dataSource: any;
@@ -94,7 +98,7 @@ export class DatatableComponent implements OnInit, OnChanges {
 
   openConfirmationDialog(actionInfo: BookingEditInfo, labName: string): void {
 
-    this.dialog.open(ConfirmationComponent, {
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
       minWidth: "40rem",
       height: "30rem",
       data: {
@@ -103,6 +107,8 @@ export class DatatableComponent implements OnInit, OnChanges {
         }
       }
     });
+
+    dialogRef.afterClosed().subscribe(() => this.refreshBookings.emit())
   }
 
   applyFilter(event: Event) {

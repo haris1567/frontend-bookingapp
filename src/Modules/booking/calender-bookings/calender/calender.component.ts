@@ -14,6 +14,7 @@ import {
   isSameDay,
   isSameMonth,
   addHours,
+  subHours,
 } from 'date-fns';
 import { noop, Subject } from 'rxjs';
 import {
@@ -119,20 +120,36 @@ export class CalenderComponent implements OnInit {
     private dialog: MatDialog,
     private bookingService: BookingService
   ) {
-
-    this.bookingService.getAllBookings().subscribe(response => {
-      console.log('Response:', response);
-      this.mapBookingEventToCalenderEvent(response);
-    })
+    this.getAllBookings();
   }
 
   ngOnInit(): void {
   }
 
+  getAllBookings() {
+
+    this.bookingService.getAllBookings().subscribe(response => {
+      console.log('Response:', response);
+      this.mapBookingEventToCalenderEvent(response);
+    });
+  }
+
   mapBookingEventToCalenderEvent(bookingEvents: Booking[]): void {
-    this.events = bookingEvents.map(({ startTime, endTime, title, uid }) => ({
-      start: new Date(startTime), end: new Date(endTime), title: `${title} - ${uid}`, color: colors.red, actions: this.actions
-    }));
+
+    this.events = bookingEvents.map(({ startTime, endTime, title, uid }) => {
+      let start = new Date(startTime);
+      let localDiffHours = start.getTimezoneOffset() / 60;
+      let endSum
+      let end = new Date(endTime);
+
+      start = localDiffHours > 0 ? subHours(start, Math.abs(localDiffHours)) : addHours(start, Math.abs(localDiffHours));
+      end = localDiffHours > 0 ? subHours(end, Math.abs(localDiffHours)) : addHours(end, Math.abs(localDiffHours));
+
+      return {
+        start, end, title: `${title} - ${uid}`, color: colors.red, actions: this.actions
+      }
+
+    });
     this.refresh.next();
   }
 
@@ -213,7 +230,7 @@ export class CalenderComponent implements OnInit {
       console.log('BookingObject:', event);
       this.bookingService.createBooking(event).subscribe((response) => {
         if (response) {
-          const dialogRefConfirm = this.dialog.open(ConfirmationComponent, {
+          this.dialog.open(ConfirmationComponent, {
             width: "50rem",
             height: "40rem",
             data: {
@@ -222,9 +239,7 @@ export class CalenderComponent implements OnInit {
             }
           });
 
-          dialogRefConfirm.afterClosed().subscribe(confirmation => {
-            console.log({ confirmation });
-          })
+          this.getAllBookings();
         }
       });
     }
