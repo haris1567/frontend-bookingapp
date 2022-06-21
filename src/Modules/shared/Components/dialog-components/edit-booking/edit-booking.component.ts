@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { addHours, format, startOfHour } from 'date-fns';
+import { addHours, format, startOfDay, startOfHour } from 'date-fns';
 import { BookingEditInfo } from 'src/Models/booking';
 import { BOOKING_ACTION, DATE_FORMAT, TIME_FORMAT } from 'src/Models/constants';
 
@@ -29,7 +29,7 @@ export class EditBookingComponent implements OnInit {
 
   startDateRaw: Date;
   endDateRaw: Date;
-
+  minDate: Date;
   isCloseDisabled = false;
 
   constructor(public dialogRef: MatDialogRef<EditBookingComponent>, @Inject(MAT_DIALOG_DATA) public data: BookingEditInfo, private fb: FormBuilder) {
@@ -50,6 +50,7 @@ export class EditBookingComponent implements OnInit {
       bookingStartTime: [startDate, Validators.required],
       bookingEndTime: [endDate, Validators.required]
     });
+    this.minDate = startOfDay(new Date());
   }
 
   ngOnInit(): void {

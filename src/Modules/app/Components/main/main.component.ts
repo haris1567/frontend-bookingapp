@@ -17,15 +17,4 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
-  getData(): void {
-    this.userService.getAllUsers().subscribe(response => {
-      console.log(response);
-      this.notificationService.showSuccess('Success', 'Data Found!');
-    }, (err) => {
-      console.log(err);
-      this.notificationService.showError('Failure', err.message);
-    })
-  }
-
 }

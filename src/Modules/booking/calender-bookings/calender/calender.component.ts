@@ -123,7 +123,7 @@ export class CalenderComponent implements OnInit {
 
   minDate: Date = subDays(new Date(), 1);
 
-  maxDate: Date = addMonths(new Date(), 1);
+  maxDate: Date = addMonths(new Date(), 3);
 
   prevBtnDisabled: boolean = false;
 
@@ -149,7 +149,6 @@ export class CalenderComponent implements OnInit {
   getAllBookings() {
 
     this.bookingService.getAllBookings().subscribe(response => {
-      console.log('Response:', response);
       this.bookings = response;
       this.mapBookingEventToCalenderEvent(response);
     });
@@ -214,7 +213,6 @@ export class CalenderComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('BookingResult:', result);
         const secondDialog = this.dialog.open(UserInfoInputComponent, {
           data: result,
           width: "50%",
@@ -232,7 +230,6 @@ export class CalenderComponent implements OnInit {
 
   private sendBookingData(actionInfo: BookingEditInfo, event: BookingEvent): void {
     if (event) {
-      console.log('BookingObject:', event);
       this.bookingService.createBooking(event).subscribe((response) => {
         if (response) {
           this.dialog.open(ConfirmationComponent, {
@@ -265,7 +262,7 @@ export class CalenderComponent implements OnInit {
     this.nextBtnDisabled = !this.dateIsValid(
       startOfPeriod(this.view, addPeriod(this.view, this.viewDate, 1))
     );
-    console.log({ prev: this.prevBtnDisabled, next: this.nextBtnDisabled })
+
     if (this.viewDate < this.minDate) {
       this.changeDate(this.minDate);
     } else if (this.viewDate > this.maxDate) {
