@@ -18,3 +18,5 @@ export const LABNAMES = {
 }
 
 export const DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+export const TIME_FORMAT = "HH:mm";
+export const DATE_FORMAT = "yyyy-MM-dd";

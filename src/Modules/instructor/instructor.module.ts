@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DatatableComponent } from './datatable/datatable.component';
 import { SharedModule } from '../shared/shared.module';
 import { instructorRoutingComponents, InstructorRoutingModule } from './instructor-routing.module';
@@ -13,6 +13,7 @@ import { instructorRoutingComponents, InstructorRoutingModule } from './instruct
   imports: [
     CommonModule, SharedModule,
     InstructorRoutingModule
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class InstructorModule { }

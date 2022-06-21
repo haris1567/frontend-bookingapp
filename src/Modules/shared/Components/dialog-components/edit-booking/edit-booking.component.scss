@@ -44,4 +44,14 @@
     height: 3rem !important;
     border-radius: 2rem !important;
   }
+
+  .time-container {
+    margin: 0.5rem;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+::ng-deep .timepicker-overlay {
+  z-index: 10001 !important;
 }

@@ -165,11 +165,9 @@ export class CalenderComponent implements OnInit {
     this.events = bookingEvents.map(({ startTime, endTime, title, uid, id }) => {
       let start = new Date(startTime);
       let end = new Date(endTime);
-      let localDiffHours = start.getTimezoneOffset() / 60;
 
-
-      start = localDiffHours > 0 ? subHours(start, Math.abs(localDiffHours)) : addHours(start, Math.abs(localDiffHours));
-      end = localDiffHours > 0 ? subHours(end, Math.abs(localDiffHours)) : addHours(end, Math.abs(localDiffHours));
+      start = this.adjustLocalDate(start);
+      end = this.adjustLocalDate(end);
 
       return {
         id, start, end, title: `${title} - ${uid}`, color: colors.red, actions: this.actions
@@ -185,12 +183,18 @@ export class CalenderComponent implements OnInit {
   }
 
 
+  adjustLocalDate(oldDate: Date): Date {
+    let localDiffHours = oldDate.getTimezoneOffset() / 60;
+    return localDiffHours > 0 ? subHours(oldDate, Math.abs(localDiffHours)) : addHours(oldDate, Math.abs(localDiffHours));
+  }
 
   handleEvent(action: string, event: CalendarEvent): void {
+    const booking = this.bookings.find(booking => booking.id === event.id) as Booking;
+
     this.dialog.open(ViewBookingComponent, {
       width: "50rem",
       height: "45rem",
-      data: this.bookings.find(booking => booking.id === event.id)
+      data: { ...booking, startTime: this.adjustLocalDate(new Date(booking.startTime)), endTime: this.adjustLocalDate(new Date(booking.endTime)) }
     });
   }
 
@@ -204,7 +208,7 @@ export class CalenderComponent implements OnInit {
     const dialogRef = this.dialog.open(EditBookingComponent, {
       data,
       width: "50%",
-      height: "40rem",
+      height: "45rem",
       minWidth: "40rem",
     });
 

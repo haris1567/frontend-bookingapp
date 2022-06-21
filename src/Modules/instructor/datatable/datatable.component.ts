@@ -1,6 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { addHours, subHours } from 'date-fns';
 import { Booking, BookingEditInfo } from 'src/Models/booking';
 import { BOOKING_ACTION } from 'src/Models/constants';
 import { ConfirmationComponent } from 'src/Modules/shared/Components/dialog-components/confirmation/confirmation.component';
@@ -27,11 +29,17 @@ export class DatatableComponent implements OnInit, OnChanges {
   deleteAction = BOOKING_ACTION.deleteAction;
   editAction = BOOKING_ACTION.editAction;
 
-  constructor(public dialog: MatDialog, private bookingService: BookingService) { }
+  constructor(public dialog: MatDialog, private bookingService: BookingService, private datePipe: DatePipe) { }
   ngOnChanges(changes: SimpleChanges): void {
 
     const info = changes['bookingInformation'].currentValue;
     if (info) {
+      this.bookingInformation = this.bookingInformation.map(booking =>
+      ({
+        ...booking, startTime: this.adjustLocalDate(new Date(booking.startTime)),
+        endTime: this.adjustLocalDate(new Date(booking.endTime))
+      }));
+
       this.mapBookingToDataSource();
     }
   }
@@ -45,15 +53,20 @@ export class DatatableComponent implements OnInit, OnChanges {
       id,
       date: startTime,
       title,
-      time: `${(new Date(startTime)).getHours()}00 - ${(new Date(endTime)).getHours()}00`,
+      time: `${this.datePipe.transform(new Date(startTime), 'HH00')} - ${this.datePipe.transform(new Date(endTime), 'HH00')}`,
       uid,
       labName: labId == 1 ? "CCNA Lab" : "Lab Not Available",
       dateAdded
     })));
   }
 
+  adjustLocalDate(oldDate: Date): Date {
+    let localDiffHours = oldDate.getTimezoneOffset() / 60;
+    return localDiffHours > 0 ? subHours(oldDate, Math.abs(localDiffHours)) : addHours(oldDate, Math.abs(localDiffHours));
+  }
+
   openBookingChangeDialog(action: string, id: number, labName: string) {
-    const booking = this.bookingInformation.find(booking => booking.id === id);
+    const booking = this.bookingInformation.find(booking => booking.id === id) as Booking;
     const data: BookingEditInfo = {
       action, id, startTime: booking?.startTime, endTime: booking?.endTime
     }
@@ -61,7 +74,7 @@ export class DatatableComponent implements OnInit, OnChanges {
       width: "50%",
       height: "75%",
       minWidth: "40rem",
-      minHeight: "40rem",
+      minHeight: "45rem",
       data,
     });
 
@@ -98,8 +111,8 @@ export class DatatableComponent implements OnInit, OnChanges {
   }
 
   openConfirmationDialog(actionInfo: BookingEditInfo, labName: string): void {
-
-    const dialogRef = this.dialog.open(ConfirmationComponent, {
+    this.refreshBookings.emit()
+    this.dialog.open(ConfirmationComponent, {
       minWidth: "40rem",
       height: "30rem",
       data: {
@@ -108,8 +121,6 @@ export class DatatableComponent implements OnInit, OnChanges {
         }
       }
     });
-
-    dialogRef.afterClosed().subscribe(() => this.refreshBookings.emit())
   }
 
   applyFilter(event: Event) {

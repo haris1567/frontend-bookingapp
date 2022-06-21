@@ -22,7 +22,7 @@
                 matInput
                 [matDatepicker]="picker2"
                 formControlName="bookingDate"
-                [disabled]="true"
+                readonly
               />
 
               <mat-datepicker-toggle
@@ -43,21 +43,56 @@
         <div class="input-item-{{ action }}">
           <img [src]="clockUrl" />
           <ng-container *ngIf="action !== bookingActions.deleteAction">
-            <mat-form-field color="accent" appearance="fill">
-              <mat-label>Enter Time</mat-label>
-              <input
-                matInput
-                type="datetime-local"
-                placeholder="start date"
-                formControlName="bookingStartTime"
-              />
-            </mat-form-field>
+            <mat-label>Enter Time</mat-label>
+
+            <div class="time-container">
+              <mat-form-field>
+                <mat-label>Start Time</mat-label>
+                <input
+                  matInput
+                  aria-label="Time Start"
+                  [ngxTimepicker]="appendedToInput1"
+                  formControlName="bookingStartTime"
+                  readonly
+                />
+              </mat-form-field>
+
+              <ngx-material-timepicker
+                #appendedToInput1
+                [hoursOnly]="true"
+                (opened)="disableActions()"
+                (closed)="enableActions()"
+                [appendToInput]="true"
+                [enableKeyboardInput]="true"
+              ></ngx-material-timepicker>
+            </div>
+
+            <div class="time-container">
+              <mat-form-field>
+                <mat-label>End Time</mat-label>
+                <input
+                  matInput
+                  aria-label="Time End"
+                  [ngxTimepicker]="appendedToInput"
+                  formControlName="bookingEndTime"
+                  readonly
+                />
+              </mat-form-field>
+              <ngx-material-timepicker
+                #appendedToInput
+                [hoursOnly]="true"
+                (opened)="disableActions()"
+                (closed)="enableActions()"
+                [appendToInput]="true"
+                [enableKeyboardInput]="true"
+              ></ngx-material-timepicker>
+            </div>
           </ng-container>
 
           <ng-container *ngIf="action == bookingActions.deleteAction">
             <span class="display-7">
-              {{ data.startTime | date: "hh00" }} -
-              {{ data.endTime | date: "hh00" }}
+              {{ data.startTime | date: "HH00" }} -
+              {{ data.endTime | date: "HH00" }}
             </span></ng-container
           >
         </div>
@@ -66,10 +101,20 @@
   </div>
 
   <mat-dialog-actions align="center">
-    <button mat-raised-button mat-dialog-close (click)="closeDialog(false)">
+    <button
+      mat-raised-button
+      mat-dialog-close
+      (click)="closeDialog(false)"
+      [disabled]="isCloseDisabled"
+    >
       Cancel
     </button>
-    <button mat-raised-button (click)="closeDialog(true)" cdkFocusInitial>
+    <button
+      mat-raised-button
+      (click)="closeDialog(true)"
+      cdkFocusInitial
+      [disabled]="isCloseDisabled"
+    >
       Confirm
     </button>
   </mat-dialog-actions>
