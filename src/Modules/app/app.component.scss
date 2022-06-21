@@ -5,6 +5,19 @@ $header-height: 5rem;
   width: 4.5rem;
 }
 
+a {
+  text-transform: uppercase;
+  transition: 0.2s linear;
+}
+
+a:hover {
+  font-size: 3.5rem;
+  padding-top: 1rem;
+  text-decoration: underline;
+  font-weight: bolder;
+  letter-spacing: 3px;
+}
+
 .mat-custom-row {
   transition: 0.2s linear;
   background: rgba(0, 0, 0, 0);
@@ -63,4 +76,8 @@ $header-height: 5rem;
 .settings {
   font-weight: 900;
   font-size: xxx-large;
+}
+
+.mat-drawer-content {
+  overflow-x: hidden;
 }

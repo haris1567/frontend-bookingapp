@@ -35,6 +35,8 @@ import { UserInfoInputComponent } from './Components/dialog-components/user-info
 import { ConfirmationComponent } from './Components/dialog-components/confirmation/confirmation.component';
 import { ViewBookingComponent } from './Components/dialog-components/view-booking/view-booking.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const components = [NotificationCardComponent, LoaderComponent, TitleWordComponent, EditBookingComponent];
 const modules = [
@@ -64,7 +66,9 @@ const modules = [
   MatSelectModule,
   MatNativeDateModule,
   MatSliderModule,
-  NgxMaterialTimepickerModule
+  NgxMaterialTimepickerModule,
+  MatRadioModule,
+  MatCheckboxModule
 ];
 
 
