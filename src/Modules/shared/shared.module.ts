@@ -34,6 +34,7 @@ import { EditBookingComponent } from './Components/dialog-components/edit-bookin
 import { UserInfoInputComponent } from './Components/dialog-components/user-info-input/user-info-input.component';
 import { ConfirmationComponent } from './Components/dialog-components/confirmation/confirmation.component';
 import { ViewBookingComponent } from './Components/dialog-components/view-booking/view-booking.component';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 const components = [NotificationCardComponent, LoaderComponent, TitleWordComponent, EditBookingComponent];
 const modules = [
@@ -63,6 +64,7 @@ const modules = [
   MatSelectModule,
   MatNativeDateModule,
   MatSliderModule,
+  NgxMaterialTimepickerModule
 ];
 
 
