@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { simulate } from '@bjornlu/colorblind';
+import { Deficiency, simulate } from '@bjornlu/colorblind';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -40,6 +40,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(simulate({ r: 120, g: 50, b: 30 }, 'protanopia'));
+    this.colorModes.forEach(mode => console.log(simulate({ r: 255, g: 255, b: 255 }, mode.title as Deficiency), mode.title));
   }
 
   onColorChange(color: string): void {

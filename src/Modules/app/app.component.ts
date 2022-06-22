@@ -56,19 +56,14 @@ export class AppComponent {
         }
       }
     });
-
-
   }
 
   triggerRouteChange() {
-
     setTimeout(() => {
       this.isOpen = true;
       setTimeout(() => {
         this.router.navigateByUrl(MODULE_ADDRESS.DASHBOARD);
       }, 500)
     }, 1500);
-
-
   }
 }

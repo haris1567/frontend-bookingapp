@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/Services/User-Service/user.service';
-import { AppNotificationService } from 'src/Services/app-notification-service/app-notification-service';
+import { AppService } from 'src/Services/app-Service/app.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -13,7 +12,7 @@ export class MainComponent implements OnInit {
 
   title = "BOOKING APP";
 
-  constructor(private userService: UserService, private notificationService: AppNotificationService) { }
+  constructor(private appService: AppService) { }
   ngOnInit(): void {
 
   }

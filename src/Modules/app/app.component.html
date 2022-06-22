@@ -1,6 +1,4 @@
 <mat-sidenav-container [hasBackdrop]="" class="sidenav-container">
-  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"> </mat-progress-bar>
-
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -85,7 +83,6 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
     </mat-toolbar>
-
     <app-loader></app-loader>
 
     <simple-notifications></simple-notifications>
