@@ -3,7 +3,6 @@ $padding-value: max(8vh, 3rem);
 .title-container {
   font-family: monospace;
   font-weight: 500;
-  color: #030f55;
   display: flex;
   justify-content: center;
   padding-top: calc(#{$padding-value} / 2);

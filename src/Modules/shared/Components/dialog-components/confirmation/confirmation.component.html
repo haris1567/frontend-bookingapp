@@ -1,6 +1,8 @@
 <div
   class="container-fit"
-  style="background-color: {{ backgroundColor }}; color: white"
+  appBackgroundColor
+  [currentColor]="backgroundColor"
+  style="color: white"
 >
   <div class="image-container"><img [src]="imageUrl" [alt]="imageAlt" /></div>
 

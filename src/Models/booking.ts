@@ -4,7 +4,7 @@ export interface Booking {
     labId: number;
     endTime: Date;
     title: string;
-    userId: string;
+    userId: number;
     uid: string;
     dateAdded: Date;
 }

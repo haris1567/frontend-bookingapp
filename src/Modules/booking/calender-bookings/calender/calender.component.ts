@@ -21,7 +21,7 @@ import {
   subDays,
   subWeeks,
 } from 'date-fns';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -31,27 +31,32 @@ import {
 import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-components/edit-booking/edit-booking.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Booking, BookingEditInfo, BookingEvent } from 'src/Models/booking';
-import { BOOKING_ACTION, LABNAMES } from 'src/Models/constants';
+import { BOOKING_ACTION, LABNAMES, rgbToHex } from 'src/Models/constants';
 import { UserInfoInputComponent } from 'src/Modules/shared/Components/dialog-components/user-info-input/user-info-input.component';
 import { BookingService } from 'src/Services/Booking-Service/booking.service';
 import { ConfirmationComponent } from 'src/Modules/shared/Components/dialog-components/confirmation/confirmation.component';
 import { ViewBookingComponent } from 'src/Modules/shared/Components/dialog-components/view-booking/view-booking.component';
+import { AppService } from 'src/Services/app-Service/app.service';
 
 
-const colors: any = {
+const colorsNormal: any = {
   red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
+    primary: 'rgb(173, 33, 33)',
+    secondary: 'rgb(250, 227, 227)',
   },
   blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
+    primary: 'rgb(30, 144, 255)',
+    secondary: 'rgb(209, 232, 255)',
   },
   yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
+    primary: 'rgb(227, 188, 8)',
+    secondary: 'rgb(253, 241, 186)',
   },
 };
+
+const colors: any = {
+
+}
 
 function addPeriod(period: CalendarView, date: Date, amount: number): Date {
   return {
@@ -138,12 +143,19 @@ export class CalenderComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private appService: AppService
   ) {
     this.getAllBookings();
   }
 
   ngOnInit(): void {
+    (Object.values(colorsNormal) as []).forEach(({ primary, secondary }, i) => {
+      colors[i.toString()] = {
+        primary: this.appService.getSimulatedColor(primary),
+        secondary: this.appService.getSimulatedColor(secondary)
+      }
+    });
   }
 
   getAllBookings() {
@@ -160,16 +172,16 @@ export class CalenderComponent implements OnInit {
 
 
   mapBookingEventToCalenderEvent(bookingEvents: Booking[]): void {
+    const colorsLength = Object.keys(colors).length;
 
-    this.events = bookingEvents.map(({ startTime, endTime, title, uid, id }) => {
+    this.events = bookingEvents.map(({ startTime, endTime, title, uid, id, userId }, i) => {
       let start = new Date(startTime);
       let end = new Date(endTime);
 
       start = this.adjustLocalDate(start);
       end = this.adjustLocalDate(end);
-
       return {
-        id, start, end, title: `${title} - ${uid}`, color: colors.red, actions: this.actions
+        id, start, end, title: `${title} - ${uid}`, color: colors[userId % colorsLength], actions: this.actions
       }
 
     });

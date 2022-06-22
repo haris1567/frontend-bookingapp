@@ -37,8 +37,10 @@ import { ViewBookingComponent } from './Components/dialog-components/view-bookin
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ColorDirective } from './Directives/color.directive';
+import { BackgroundColorDirective } from './Directives/background-color.directive';
 
-const components = [NotificationCardComponent, LoaderComponent, TitleWordComponent, EditBookingComponent];
+const components = [NotificationCardComponent, LoaderComponent, TitleWordComponent, EditBookingComponent, UserInfoInputComponent, ConfirmationComponent, ViewBookingComponent];
 const modules = [
   MatDialogModule,
   DragDropModule,
@@ -71,14 +73,14 @@ const modules = [
   MatCheckboxModule
 ];
 
-
+const directives = [ColorDirective, BackgroundColorDirective]
 @NgModule({
-  declarations: [components, UserInfoInputComponent, ConfirmationComponent, ViewBookingComponent],
+  declarations: [components, directives],
   imports: [
     CommonModule,
     LayoutModule,
     modules
   ],
-  exports: [modules, components]
+  exports: [modules, components, directives]
 })
 export class SharedModule { }

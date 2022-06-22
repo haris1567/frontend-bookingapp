@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Deficiency, simulate } from '@bjornlu/colorblind';
+import { ORIGINAL_COLOR_MODE } from 'src/Models/constants';
+import { AppService } from 'src/Services/app-Service/app.service';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -7,23 +8,28 @@ import { Deficiency, simulate } from '@bjornlu/colorblind';
 })
 export class SettingsComponent implements OnInit {
 
-  colorModes = [{
-    title: 'protanopia',
-    description: 'No red',
+  colorModes = [
+    {
+      title: ORIGINAL_COLOR_MODE,
+      description: 'no simulation'
+    },
+    {
+      title: 'protanopia',
+      description: 'No red',
 
-  }, {
-    title: 'deuteranopia',
-    description: 'No green',
+    }, {
+      title: 'deuteranopia',
+      description: 'No green',
 
-  }, {
-    title: 'tritanopia',
-    description: 'No blue',
+    }, {
+      title: 'tritanopia',
+      description: 'No blue',
 
-  }, {
-    title: 'achromatopsia',
-    description: 'No color',
+    }, {
+      title: 'achromatopsia',
+      description: 'No color',
 
-  }];
+    }];
 
   accessOptions = [{
     title: 'Activate Symbols',
@@ -35,17 +41,19 @@ export class SettingsComponent implements OnInit {
 
   }];
 
-  selectedMode = '';
-  constructor() { }
+  selectedColorMode = '';
+
+  constructor(private appService: AppService) {
+    this.selectedColorMode = this.appService.currentColorMode;
+    console.log('MOde:', this.selectedColorMode)
+  }
 
   ngOnInit(): void {
-    console.log(simulate({ r: 120, g: 50, b: 30 }, 'protanopia'));
-    this.colorModes.forEach(mode => console.log(simulate({ r: 255, g: 255, b: 255 }, mode.title as Deficiency), mode.title));
   }
 
   onColorChange(color: string): void {
-
-    console.log('new color:', color);
+    this.selectedColorMode = color;
+    this.appService.setColorMode(color);
   }
 
 }

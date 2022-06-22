@@ -6,14 +6,12 @@ import { bookingRoutingComponents, BookingRoutingModule } from './booking-routin
 import { SharedModule } from '../shared/shared.module';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { CreateBookingComponent } from './shared/create-booking/create-booking.component';
 
 @NgModule({
   declarations: [
     bookingRoutingComponents,
     CalenderComponent,
     SlotsViewComponent,
-    CreateBookingComponent,
   ],
   imports: [
     CommonModule, SharedModule,

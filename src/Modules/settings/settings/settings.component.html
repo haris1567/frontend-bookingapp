@@ -38,6 +38,7 @@
       class="example-radio-button largeRadio"
       (change)="onColorChange($event.value)"
       [value]="data.title"
+      [checked]="data.title == selectedColorMode"
     >
       <div class="text">
         <span>{{ data.title | uppercase }}</span>

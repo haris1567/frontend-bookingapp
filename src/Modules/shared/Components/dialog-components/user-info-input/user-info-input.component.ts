@@ -15,6 +15,7 @@ export class UserInfoInputComponent implements OnInit {
 
   personUrl = "assets/icons/person.png";
   emailUrl = "assets/icons/email.png";
+  titleUrl = "assets/icons/title.png";
   imageUrl = "";
   imageAlt = "";
   action = "";
