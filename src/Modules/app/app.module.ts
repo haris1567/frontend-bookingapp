@@ -9,16 +9,11 @@ import { NotfoundComponent } from './Components/notfound/notfound.component';
 import { AboutUsComponent } from './Components/about-us/about-us.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptService } from 'src/Services/http-intercept.service';
-import { NotificationAnimationType, Options, SimpleNotificationsModule } from 'angular2-notifications';
+import { Options, SimpleNotificationsModule } from 'angular2-notifications';
 import { AuthGuard } from 'src/Guards/auth/auth.guard';
 
 const options: Options = {
-  position: ["middle", "right"],
-  timeOut: 4000,
-  clickToClose: true,
-  pauseOnHover: true,
-  preventDuplicates: true,
-  animate: NotificationAnimationType.FromRight
+  position: ["top", "right"],
 };
 
 @NgModule({
@@ -33,7 +28,7 @@ const options: Options = {
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot(),
+    SimpleNotificationsModule.forRoot({ ...options }),
     HttpClientModule
   ],
   providers: [

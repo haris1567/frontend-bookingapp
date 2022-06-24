@@ -9,7 +9,8 @@ import { COLORMODES } from 'src/Models/constants';
 })
 export class AppService {
 
-  changes = new EventEmitter();
+  colorChange = new EventEmitter();
+  optionChange = new EventEmitter<{ option: string, checked: boolean }>();
   get currentColorMode() {
     const colorMode = this.getFromCookie('colorMode');
     return colorMode ?? COLORMODES.ORIGINAL_COLOR_MODE;
@@ -37,7 +38,7 @@ export class AppService {
 
   setColorMode(colorMode: string): void {
     this.storeInCookie('colorMode', colorMode);
-    this.changes.next('');
+    this.colorChange.next('');
   }
 
   generateColorValues(color: string): RGB {
@@ -56,7 +57,15 @@ export class AppService {
     }
 
     return `rgb(${rgb.r},${rgb.g},${rgb.b})`;
+  }
 
+  setOption(key: string, checked: boolean) {
+    this.storeInCookie(key, checked);
+    this.optionChange.next({ option: key, checked });
+  }
+
+  getOption(key: string): boolean {
+    return this.getFromCookie(key);
   }
 
 }

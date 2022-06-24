@@ -32,7 +32,7 @@ export class ImagefilterDirective {
 
   constructor(private appService: AppService) {
     this.changeFilter();
-    this.appService.changes.subscribe(() =>
+    this.appService.colorChange.subscribe(() =>
       this.changeFilter());
   }
 

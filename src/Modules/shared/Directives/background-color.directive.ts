@@ -9,7 +9,7 @@ export class BackgroundColorDirective {
 
   @Input() currentColor: string = '';
   constructor(private appService: AppService) {
-    this.appService.changes.subscribe(() =>
+    this.appService.colorChange.subscribe(() =>
       this.changeColor());
   }
 

@@ -69,3 +69,8 @@ $radio-size: 40px;
 mat-radio-button {
   width: inherit;
 }
+
+::ng-deep .mat-checkbox .mat-checkbox-inner-container {
+  width: 30px;
+  height: 30px;
+}

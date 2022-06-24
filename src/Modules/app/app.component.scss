@@ -78,3 +78,24 @@ mat-sidenav-content {
   font-weight: 900;
   font-size: xxx-large;
 }
+
+$width: 20rem;
+.zoom-bar-container {
+  zoom: 100% !important;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 1001;
+
+  background-color: white;
+  border: 1px solid;
+  width: $width;
+  height: 4rem;
+}
+
+.mat-slider {
+  margin-left: 5%;
+}
+.mat-slider-horizontal {
+  width: calc($width - 2rem);
+}

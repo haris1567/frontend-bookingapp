@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { COLORMODES } from 'src/Models/constants';
+import { COLORMODES, OPTIONS } from 'src/Models/constants';
 import { AppService } from 'src/Services/app-Service/app.service';
 @Component({
   selector: 'app-settings',
@@ -31,12 +31,9 @@ export class SettingsComponent implements OnInit {
     }];
 
   accessOptions = [{
-    title: 'Activate Symbols',
-    description: 'Altert & Indicators',
-
-  }, {
-    title: 'Bold Size',
-    description: '',
+    title: OPTIONS.ZOOM,
+    description: 'Enable Zoom Slider',
+    checked: false
 
   }];
 
@@ -47,10 +44,15 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.accessOptions.forEach(option => option.checked = this.appService.getOption(option.title))
   }
 
   onColorChange(color: string): void {
     this.selectedColorMode = color;
     this.appService.setColorMode(color);
+  }
+
+  onOptionSelect(checked: boolean, title: string) {
+    this.appService.setOption(title, checked);
   }
 }

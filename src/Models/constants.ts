@@ -31,14 +31,15 @@ export const COLORMODES = {
     ACHROMATOPSIA: 'achromatopsia',
 }
 
+export const OPTIONS = {
+    ZOOM: 'zoom'
+}
+
 export function componentToHex(c: any) {
     var hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
 }
 
-export function rgbRToHext(value: RGB) {
-    return rgbToHex(value.r, value.g, value.b);
-}
 export function rgbToHex(r: any, g: any, b: any) {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }

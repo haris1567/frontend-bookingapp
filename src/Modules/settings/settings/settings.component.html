@@ -50,7 +50,10 @@
 
 <ng-template let-data="data" #accessibilityTemplate>
   <div class="option-container">
-    <mat-checkbox>
+    <mat-checkbox
+      (change)="onOptionSelect($event.checked, data.title)"
+      [checked]="data.checked"
+    >
       <div class="text">
         <span>{{ data.title | uppercase }}</span>
         <span class="description">{{ data.description | titlecase }}</span>

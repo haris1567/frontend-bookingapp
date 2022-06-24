@@ -18,8 +18,13 @@ export class AppNotificationService {
     }
 
     showError(title: string, message: string): void {
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+
         this.notificationService.error(title, message, {
-            position: ["middle", "right"],
             timeOut: 4000,
             clickToClose: true,
             pauseOnHover: true,
