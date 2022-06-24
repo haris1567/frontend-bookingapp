@@ -60,7 +60,13 @@
   </div>
 
   <mat-dialog-actions align="center">
-    <button mat-raised-button mat-dialog-close (click)="closeDialog(false)">
+    <button
+      mat-raised-button
+      mat-dialog-close
+      (click)="closeDialog(false)"
+      name="Cancel Button"
+      [attr.aria-label]="'Cancel Button'"
+    >
       Cancel
     </button>
     <button
@@ -68,6 +74,8 @@
       (click)="closeDialog(true)"
       cdkFocusInitial
       [disabled]="!userForm.valid"
+      name="Confirm Button"
+      [attr.aria-label]="'Confirm Button'"
     >
       Confirm
     </button>

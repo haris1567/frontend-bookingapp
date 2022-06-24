@@ -72,6 +72,8 @@
         <button
           mat-mini-fab
           color="primary"
+          name="{{ editAction }} Button"
+          [attr.aria-label]="editAction + 'Button'"
           (click)="
             openBookingChangeDialog(editAction, element.id, element.labName)
           "
@@ -81,6 +83,8 @@
 
         <button
           mat-mini-fab
+          name="{{ deleteAction }} Button"
+          [attr.aria-label]="deleteAction + 'Button'"
           color="warn"
           (click)="
             openBookingChangeDialog(deleteAction, element.id, element.labName)

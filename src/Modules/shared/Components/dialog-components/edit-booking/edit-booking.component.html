@@ -111,6 +111,8 @@
       mat-dialog-close
       (click)="closeDialog(false)"
       [disabled]="isCloseDisabled"
+      name="Cancel Button"
+      [attr.aria-label]="'Cancel Button'"
     >
       Cancel
     </button>
@@ -119,6 +121,8 @@
       (click)="closeDialog(true)"
       cdkFocusInitial
       [disabled]="isCloseDisabled"
+      name="Confirm Button"
+      [attr.aria-label]="'Confirm Button'"
     >
       Confirm
     </button>

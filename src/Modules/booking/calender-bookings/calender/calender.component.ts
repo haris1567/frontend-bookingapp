@@ -100,7 +100,7 @@ export class CalenderComponent implements OnInit {
 
   activeDayIsOpen: boolean = false; // To open current Day Data on default
 
-  view: CalendarView = CalendarView.Month;
+  view: CalendarView = CalendarView.Week;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
 

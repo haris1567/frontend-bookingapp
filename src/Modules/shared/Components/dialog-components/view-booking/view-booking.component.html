@@ -26,7 +26,13 @@
   </div>
 
   <mat-dialog-actions align="center">
-    <button mat-raised-button mat-dialog-close (click)="closeDialog()">
+    <button
+      mat-raised-button
+      mat-dialog-close
+      (click)="closeDialog()"
+      name="Acknowledge Button"
+      [attr.aria-label]="'Acknowledge Button'"
+    >
       Okay
     </button>
   </mat-dialog-actions>
