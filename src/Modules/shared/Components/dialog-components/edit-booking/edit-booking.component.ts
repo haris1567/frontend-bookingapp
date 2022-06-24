@@ -32,13 +32,14 @@ export class EditBookingComponent implements OnInit {
   endDateRaw: Date;
   minDate: Date;
   isCloseDisabled = false;
+  colorMode = this.appService.currentColorMode;
 
   constructor(public dialogRef: MatDialogRef<EditBookingComponent>, @Inject(MAT_DIALOG_DATA) public data: BookingEditInfo,
     private fb: FormBuilder, private appService: AppService) {
     dialogRef.disableClose = true;
     this.action = data.action;
     this.editInfo = data;
-    this.imageUrl = `assets/images/${data.action}_${this.appService.currentColorMode}.png`;
+    this.imageUrl = `assets/images/${data.action}_${this.colorMode}.png`;
     this.backgroundColor = this.action === BOOKING_ACTION.createAction ? '#00535d' : '#289f69';
 
     this.startDateRaw = startOfHour(new Date(data.startTime as Date));

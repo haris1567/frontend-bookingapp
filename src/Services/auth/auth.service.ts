@@ -38,7 +38,13 @@ export class AuthService {
 
   getExpiration() {
     const expiration = localStorage.getItem(TOKEN_PROPERTIES.exiresIn);
-    const expiresAt = JSON.parse(expiration ?? '');
+    let expiresAt = '';
+    try {
+      expiresAt = JSON.parse(expiration ?? '');
+    } catch (ex) {
+      console.log('JSON Error In expiresIn');
+    }
+
     return new Date(expiresAt);
   }
 

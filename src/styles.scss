@@ -60,22 +60,145 @@ $achromatopsia-theme: mat-light-theme(
 
 .original {
   @include angular-material-theme($original-theme);
+  .timepicker-button {
+    color: #81c784 !important;
+  }
+  .clock-face__number > span.active {
+    background-color: #81c784 !important;
+  }
+
+  .clock-face__clock-hand {
+    background-color: #81c784 !important;
+
+    &::after {
+      background-color: #81c784 !important;
+    }
+
+    &::before {
+      border-color: #81c784 !important;
+    }
+  }
+
+  .timepicker__header {
+    background-color: #81c784 !important;
+  }
+  .timepicker-dial__item_active {
+    color: #81c784 !important;
+  }
 }
 
 .protanopia {
   @include angular-material-theme($protanopia-theme);
+  .timepicker-button {
+    color: #cddc39 !important;
+  }
+  .clock-face__number > span.active {
+    background-color: #cddc39 !important;
+  }
+
+  .clock-face__clock-hand {
+    background-color: #cddc39 !important;
+
+    &::after {
+      background-color: #cddc39 !important;
+    }
+
+    &::before {
+      border-color: #cddc39 !important;
+    }
+  }
+
+  .timepicker__header {
+    background-color: #cddc39 !important;
+  }
+  .timepicker-dial__item_active {
+    color: #cddc39 !important;
+  }
 }
 
 .deuteranopia {
   @include angular-material-theme($deuteranopia-theme);
+  .timepicker-button {
+    color: #ffcc80 !important;
+  }
+  .clock-face__number > span.active {
+    background-color: #ffcc80 !important;
+  }
+  .clock-face__clock-hand {
+    background-color: #ffcc80 !important;
+
+    &::after {
+      background-color: #ffcc80 !important;
+    }
+
+    &::before {
+      border-color: #ffcc80 !important;
+    }
+  }
+
+  .timepicker__header {
+    background-color: #ffcc80 !important;
+  }
+  .timepicker-dial__item_active {
+    color: #ffcc80 !important;
+  }
 }
 
 .tritanopia {
   @include angular-material-theme($tritanopia-theme);
+  .timepicker-button {
+    color: #e0f2f1 !important;
+  }
+  .clock-face__number > span.active {
+    background-color: #e0f2f1 !important;
+  }
+  .clock-face__clock-hand {
+    background-color: #e0f2f1 !important;
+
+    &::after {
+      background-color: #e0f2f1 !important;
+    }
+
+    &::before {
+      border-color: #e0f2f1 !important;
+    }
+  }
+
+  .timepicker__header {
+    background-color: #e0f2f1 !important;
+  }
+  .timepicker-dial__item_active {
+    color: #e0f2f1 !important;
+  }
 }
 
 .achromatopsia {
   @include angular-material-theme($achromatopsia-theme);
+  .timepicker-button {
+    color: gray !important;
+  }
+  .clock-face__number > span.active {
+    background-color: gray !important;
+  }
+
+  .clock-face__clock-hand {
+    background-color: gray !important;
+
+    &::after {
+      background-color: gray !important;
+    }
+
+    &::before {
+      border-color: gray !important;
+    }
+  }
+
+  .timepicker__header {
+    background-color: gray !important;
+  }
+  .timepicker-dial__item_active {
+    color: gray !important;
+  }
 }
 
 // Notification Classes
