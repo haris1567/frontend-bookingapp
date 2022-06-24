@@ -45,7 +45,7 @@ export class ImagefilterDirective {
   }
 
   changeFilter() {
-    this.filterBinding = this.hueModes.find(mode => mode.title === this.appService.currentColorMode)?.value as string;
+    this.filterBinding = this.hueModes.find(mode => mode.title === this.appService.currentColorMode)?.value as string + ` sepia(50%)`;
   }
 
 

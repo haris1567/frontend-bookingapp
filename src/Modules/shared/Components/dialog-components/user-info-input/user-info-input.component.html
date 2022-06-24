@@ -63,7 +63,12 @@
     <button mat-raised-button mat-dialog-close (click)="closeDialog(false)">
       Cancel
     </button>
-    <button mat-raised-button (click)="closeDialog(true)" cdkFocusInitial>
+    <button
+      mat-raised-button
+      (click)="closeDialog(true)"
+      cdkFocusInitial
+      [disabled]="!userForm.valid"
+    >
       Confirm
     </button>
   </mat-dialog-actions>

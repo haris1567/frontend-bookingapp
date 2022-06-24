@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationAnimationType, NotificationsService, Options } from 'angular2-notifications';
+import { AppService } from '../app-Service/app.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppNotificationService {
 
-    constructor(private notificationService: NotificationsService) { }
+    constructor(private notificationService: NotificationsService, private appService: AppService) { }
 
     showSuccess(title: string, message: string): void {
         this.notificationService.success(title, message);
@@ -17,7 +18,17 @@ export class AppNotificationService {
     }
 
     showError(title: string, message: string): void {
-        this.notificationService.error(title, message);
+        this.notificationService.error(title, message, {
+            position: ["middle", "right"],
+            timeOut: 4000,
+            clickToClose: true,
+            pauseOnHover: true,
+            preventDuplicates: true,
+            showProgressBar: false,
+            animate: NotificationAnimationType.FromRight,
+            theClass: `${this.appService.currentColorMode}-n`
+        } as Options);
+
     }
 
     showInfo(title: string, message: string): void {

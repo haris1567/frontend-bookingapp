@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    console.log('Login Called')
     const val = { userId: this.userForm.controls['userId'].value, password: this.userForm.controls['password'].value }
 
     if (val.userId && val.password) {

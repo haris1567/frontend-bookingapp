@@ -78,6 +78,28 @@ $achromatopsia-theme: mat-light-theme(
   @include angular-material-theme($achromatopsia-theme);
 }
 
+// Notification Classes
+
+.original-n {
+  background-color: red !important;
+}
+
+.protanopia-n {
+  background-color: rgb(43, 43, 0) !important;
+}
+
+.deuteranopia-n {
+  background-color: rgb(84, 84, 0) !important;
+}
+
+.tritanopia-n {
+  background-color: rgb(255, 0, 0) !important;
+}
+
+.achromatopsia-n {
+  background-color: rgb(54, 54, 54) !important;
+}
+
 html,
 body {
   height: 100%;

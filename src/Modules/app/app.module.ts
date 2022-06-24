@@ -20,6 +20,7 @@ const options: Options = {
   preventDuplicates: true,
   animate: NotificationAnimationType.FromRight
 };
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,7 @@ const options: Options = {
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot({ ...options }),
+    SimpleNotificationsModule.forRoot(),
     HttpClientModule
   ],
   providers: [
