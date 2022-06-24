@@ -7,7 +7,7 @@ import { AppService } from 'src/Services/app-Service/app.service';
 })
 export class MainComponent implements OnInit {
 
-  bookingLogoUrl = "assets/images/bookingAppLogo.png";
+  bookingLogoUrl = `assets/images/bookingAppLogo_${this.appService.currentColorMode}.png`;
   secondImageUrl = "";
 
   background = `linear-gradient(

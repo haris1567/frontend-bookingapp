@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from 'src/Services/app-Service/app.service';
 
 @Component({
   selector: 'app-about-us',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about-us.component.scss']
 })
 export class AboutUsComponent implements OnInit {
-  aboutUsImageUrl = 'assets/images/about-us.png';
-  constructor() { }
+  aboutUsImageUrl = '';
+
+  constructor(private appService: AppService) {
+    this.aboutUsImageUrl = `assets/images/about-us_${this.appService.currentColorMode}.png`;
+  }
 
   ngOnInit(): void {
   }

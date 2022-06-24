@@ -1,3 +1,5 @@
+import { RGB } from "@bjornlu/colorblind/dist/types";
+
 export const TOKEN_PROPERTIES = {
     idToken: 'id_Token',
     exiresIn: 'expires_In'
@@ -21,13 +23,22 @@ export const DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 export const TIME_FORMAT = "HH:mm";
 export const DATE_FORMAT = "yyyy-MM-dd";
 
-export const ORIGINAL_COLOR_MODE = 'original';
+export const COLORMODES = {
+    ORIGINAL_COLOR_MODE: 'original',
+    PROTANOPIA: 'protanopia',
+    DEUTERANOPIA: 'deuteranopia',
+    TRITANOPIA: 'tritanopia',
+    ACHROMATOPSIA: 'achromatopsia',
+}
 
 export function componentToHex(c: any) {
     var hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
 }
 
+export function rgbRToHext(value: RGB) {
+    return rgbToHex(value.r, value.g, value.b);
+}
 export function rgbToHex(r: any, g: any, b: any) {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }

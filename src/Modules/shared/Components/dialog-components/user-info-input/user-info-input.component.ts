@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { BookingEditInfo, BookingEvent } from 'src/Models/booking';
 import { BOOKING_ACTION, LAB_INFO } from 'src/Models/constants';
+import { AppService } from 'src/Services/app-Service/app.service';
 
 @Component({
   selector: 'app-user-info-input',
@@ -26,9 +27,9 @@ export class UserInfoInputComponent implements OnInit {
   bookingActions = BOOKING_ACTION;
 
   constructor(public dialogRef: MatDialogRef<UserInfoInputComponent>, @Inject(MAT_DIALOG_DATA) public data: BookingEditInfo,
-    private router: Router, private fb: FormBuilder,) {
+    private router: Router, private fb: FormBuilder, private appService: AppService) {
     this.action = data.action;
-    this.imageUrl = `assets/images/${data.action}.png`;
+    this.imageUrl = `assets/images/${data.action}_${this.appService.currentColorMode}.png`;
     this.backgroundColor = this.action === BOOKING_ACTION.createAction ? '#00535d' : '#289f69';
 
     const labName = this.router.url.slice(this.router.url.lastIndexOf('/'));

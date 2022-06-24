@@ -21,7 +21,7 @@ import { AppService } from 'src/Services/app-Service/app.service';
 })
 export class AppComponent {
   title = 'bookingapp-frontend';
-
+  colorMode = this.appService.currentColorMode;
   modulesAddress = MODULE_ADDRESS;
   moduleNames = MODULE_NAMES;
 
@@ -40,7 +40,9 @@ export class AppComponent {
 
   constructor(private breakpointObserver: BreakpointObserver,
     private router: Router,
-    private appService: AppService) { }
+    private appService: AppService) {
+    this.appService.changes.subscribe(() => this.colorMode = this.appService.currentColorMode);
+  }
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {

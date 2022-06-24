@@ -39,6 +39,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ColorDirective } from './Directives/color.directive';
 import { BackgroundColorDirective } from './Directives/background-color.directive';
+import { ImagefilterDirective } from './Directives/imagefilter.directive';
 
 const components = [NotificationCardComponent, LoaderComponent, TitleWordComponent, EditBookingComponent, UserInfoInputComponent, ConfirmationComponent, ViewBookingComponent];
 const modules = [
@@ -73,7 +74,7 @@ const modules = [
   MatCheckboxModule
 ];
 
-const directives = [ColorDirective, BackgroundColorDirective]
+const directives = [ColorDirective, BackgroundColorDirective, ImagefilterDirective];
 @NgModule({
   declarations: [components, directives],
   imports: [

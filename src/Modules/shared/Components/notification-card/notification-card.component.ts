@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from 'src/Services/app-Service/app.service';
 
 @Component({
   selector: 'app-notification-card',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationCardComponent implements OnInit {
 
-  imageUrl = "assets/images/notification.png";
+  imageUrl = `assets/images/notification_${this.appService.currentColorMode}.png`;
 
-  constructor() { }
+  constructor(private appService: AppService) { }
 
   ngOnInit(): void {
   }

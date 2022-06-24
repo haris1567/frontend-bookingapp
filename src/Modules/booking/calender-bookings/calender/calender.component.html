@@ -1,103 +1,113 @@
-<div class="row text-center">
-  <div class="col-md-4">
-    <div class="btn-group">
-      <button
-        class="btn btn-primary"
-        mwlCalendarPreviousView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-        [disabled]="prevBtnDisabled"
-      >
-        Previous
-      </button>
-      <div
-        class="btn btn-outline-secondary"
-        mwlCalendarToday
-        [(viewDate)]="viewDate"
-      >
-        Today
-      </div>
-      <button
-        class="btn btn-primary"
-        mwlCalendarNextView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-        [disabled]="nextBtnDisabled"
-      >
-        Next
-      </button>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <span class="display-5">
-      {{ viewDate | calendarDate: view + "ViewTitle":"en" }}
-    </span>
-  </div>
-  <div class="col-md-4">
-    <div class="btn-group">
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Month)"
-        [class.active]="view === CalendarView.Month"
-      >
-        Month
-      </div>
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Week)"
-        [class.active]="view === CalendarView.Week"
-      >
-        Week
-      </div>
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Day)"
-        [class.active]="view === CalendarView.Day"
-      >
-        Day
+<div class="calender-container">
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <button
+          mat-raised-button
+          color="primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+          [disabled]="prevBtnDisabled"
+        >
+          Previous
+        </button>
+        <button
+          mat-raised-button
+          color="basic"
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+        >
+          Today
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+          [disabled]="nextBtnDisabled"
+        >
+          Next
+        </button>
       </div>
     </div>
+    <div class="col-md-4">
+      <span class="display-5">
+        {{ viewDate | calendarDate: view + "ViewTitle":"en" }}
+      </span>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-group">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="setView(CalendarView.Month)"
+          [class.active]="view === CalendarView.Month"
+        >
+          Month
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="setView(CalendarView.Week)"
+          [class.active]="view === CalendarView.Week"
+        >
+          Week
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="setView(CalendarView.Day)"
+          [class.active]="view === CalendarView.Day"
+        >
+          Day
+        </button>
+      </div>
+    </div>
   </div>
-</div>
-<br />
+  <br />
 
-<div [ngSwitch]="view">
-  <mwl-calendar-month-view
-    *ngSwitchCase="CalendarView.Month"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    [activeDayIsOpen]="activeDayIsOpen"
-    (dayClicked)="dayClicked($event.day)"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-    (beforeViewRender)="beforeMonthViewRender($event)"
-  >
-  </mwl-calendar-month-view>
-  <mwl-calendar-week-view
-    *ngSwitchCase="CalendarView.Week"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    [hourSegments]="1"
-    [hourSegmentHeight]="segmentHeight"
-    [minimumEventHeight]="segmentHeight"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-    (dayHeaderClicked)="clickedDate = $event.day.date; openCreateEventDialog()"
-    (hourSegmentClicked)="clickedDate = $event.date; openCreateEventDialog()"
-  >
-  </mwl-calendar-week-view>
-  <mwl-calendar-day-view
-    *ngSwitchCase="CalendarView.Day"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    [hourSegmentHeight]="segmentHeight"
-    [minimumEventHeight]="segmentHeight"
-    [hourSegments]="1"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-    (hourSegmentClicked)="clickedDate = $event.date; openCreateEventDialog()"
-  >
-  </mwl-calendar-day-view>
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (beforeViewRender)="beforeMonthViewRender($event)"
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [hourSegments]="1"
+      [hourSegmentHeight]="segmentHeight"
+      [minimumEventHeight]="segmentHeight"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (dayHeaderClicked)="
+        clickedDate = $event.day.date; openCreateEventDialog()
+      "
+      (hourSegmentClicked)="clickedDate = $event.date; openCreateEventDialog()"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [hourSegmentHeight]="segmentHeight"
+      [minimumEventHeight]="segmentHeight"
+      [hourSegments]="1"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (hourSegmentClicked)="clickedDate = $event.date; openCreateEventDialog()"
+    >
+    </mwl-calendar-day-view>
+  </div>
 </div>

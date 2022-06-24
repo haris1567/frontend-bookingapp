@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Deficiency, simulate } from '@bjornlu/colorblind';
 import { RGB } from '@bjornlu/colorblind/dist/types';
 import { CookieService } from "ngx-cookie-service";
-import { ORIGINAL_COLOR_MODE } from 'src/Models/constants';
+import { COLORMODES } from 'src/Models/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AppService {
   changes = new EventEmitter();
   get currentColorMode() {
     const colorMode = this.getFromCookie('colorMode');
-    return colorMode ?? ORIGINAL_COLOR_MODE;
+    return colorMode ?? COLORMODES.ORIGINAL_COLOR_MODE;
   }
 
   constructor(private cookieService: CookieService) {
@@ -37,7 +37,6 @@ export class AppService {
 
   setColorMode(colorMode: string): void {
     this.storeInCookie('colorMode', colorMode);
-    console.log('Change Triggered')
     this.changes.next('');
   }
 
@@ -51,7 +50,7 @@ export class AppService {
 
     const colorMode = this.currentColorMode;
 
-    if (colorMode.length > 0 && colorMode != ORIGINAL_COLOR_MODE) {
+    if (colorMode.length > 0 && colorMode != COLORMODES.ORIGINAL_COLOR_MODE) {
       const { r, g, b } = simulate({ r: rgb.r, g: rgb.g, b: rgb.b }, this.currentColorMode as Deficiency);
       return `rgb(${r},${g},${b})`;
     }

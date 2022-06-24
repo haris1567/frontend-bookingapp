@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ORIGINAL_COLOR_MODE } from 'src/Models/constants';
+import { COLORMODES } from 'src/Models/constants';
 import { AppService } from 'src/Services/app-Service/app.service';
 @Component({
   selector: 'app-settings',
@@ -10,25 +10,24 @@ export class SettingsComponent implements OnInit {
 
   colorModes = [
     {
-      title: ORIGINAL_COLOR_MODE,
+      title: COLORMODES.ORIGINAL_COLOR_MODE,
       description: 'no simulation'
     },
     {
-      title: 'protanopia',
+      title: COLORMODES.PROTANOPIA,
       description: 'No red',
 
     }, {
-      title: 'deuteranopia',
+      title: COLORMODES.DEUTERANOPIA,
       description: 'No green',
 
     }, {
-      title: 'tritanopia',
+      title: COLORMODES.TRITANOPIA,
       description: 'No blue',
 
     }, {
-      title: 'achromatopsia',
+      title: COLORMODES.ACHROMATOPSIA,
       description: 'No color',
-
     }];
 
   accessOptions = [{
@@ -45,7 +44,6 @@ export class SettingsComponent implements OnInit {
 
   constructor(private appService: AppService) {
     this.selectedColorMode = this.appService.currentColorMode;
-    console.log('MOde:', this.selectedColorMode)
   }
 
   ngOnInit(): void {
@@ -55,5 +53,4 @@ export class SettingsComponent implements OnInit {
     this.selectedColorMode = color;
     this.appService.setColorMode(color);
   }
-
 }

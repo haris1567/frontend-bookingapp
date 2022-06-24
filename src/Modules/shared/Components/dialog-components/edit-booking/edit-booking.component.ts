@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { addHours, format, startOfDay, startOfHour } from 'date-fns';
 import { BookingEditInfo } from 'src/Models/booking';
 import { BOOKING_ACTION, DATE_FORMAT, TIME_FORMAT } from 'src/Models/constants';
+import { AppService } from 'src/Services/app-Service/app.service';
 
 @Component({
   selector: 'app-edit-booking',
@@ -32,11 +33,12 @@ export class EditBookingComponent implements OnInit {
   minDate: Date;
   isCloseDisabled = false;
 
-  constructor(public dialogRef: MatDialogRef<EditBookingComponent>, @Inject(MAT_DIALOG_DATA) public data: BookingEditInfo, private fb: FormBuilder) {
+  constructor(public dialogRef: MatDialogRef<EditBookingComponent>, @Inject(MAT_DIALOG_DATA) public data: BookingEditInfo,
+    private fb: FormBuilder, private appService: AppService) {
     dialogRef.disableClose = true;
     this.action = data.action;
     this.editInfo = data;
-    this.imageUrl = `assets/images/${data.action}.png`;
+    this.imageUrl = `assets/images/${data.action}_${this.appService.currentColorMode}.png`;
     this.backgroundColor = this.action === BOOKING_ACTION.createAction ? '#00535d' : '#289f69';
 
     this.startDateRaw = startOfHour(new Date(data.startTime as Date));

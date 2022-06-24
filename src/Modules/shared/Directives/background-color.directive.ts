@@ -23,7 +23,6 @@ export class BackgroundColorDirective {
 
   changeColor() {
     this.newColor = this.appService.getSimulatedColor(this.currentColor[0] == '#' ? hexToRgbString(this.currentColor) : this.currentColor);
-    console.log(`Values: ${this.currentColor}`, hexToRgbString(this.currentColor), { newColor: this.newColor }, 'Background');
   }
 
 

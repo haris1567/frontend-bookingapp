@@ -1,92 +1,95 @@
-<mat-sidenav-container [hasBackdrop]="" class="sidenav-container">
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === true"
-  >
-    <mat-nav-list>
-      <a mat-list-item routerLink="/" class="custom-logo">
-        <img class="p-4" src="assets/images/curtin-logo.jpg" alt="logo" />
-      </a>
-      <a mat-list-item routerLink="/{{ modulesAddress.DASHBOARD }}">
-        {{ moduleNames[modulesAddress.DASHBOARD] }}
-      </a>
-      <a mat-list-item routerLink="/{{ modulesAddress.INSTRUCTOR_PANEL }}">
-        {{ moduleNames[modulesAddress.INSTRUCTOR_PANEL] }}
-      </a>
-      <a mat-list-item routerLink="/{{ modulesAddress.SETTINGS }}">
-        {{ moduleNames[modulesAddress.SETTINGS] }}
-      </a>
-      <a mat-list-item routerLink="/{{ modulesAddress.ABOUT_US }}">
-        {{ moduleNames[modulesAddress.ABOUT_US] }}
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-
-  <!-- Start of Content -->
-  <mat-sidenav-content
-    [@openClose]="isOpen ? true : false"
-    class="open-close-container"
-  >
-    <mat-toolbar
-      color="primary"
-      class="no_scroll mat-custom-row"
-      *ngIf="(isHandset$ | async) === false && !isMainRoute"
+<div [class]="colorMode">
+  <mat-sidenav-container [hasBackdrop]="" class="sidenav-container">
+    <mat-sidenav
+      #drawer
+      class="sidenav"
+      fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === true"
     >
-      <a class="menu-class pl-0" routerLink="/">
-        <mat-icon>menu</mat-icon>
-      </a>
-
-      <div class="links-container">
-        <a
-          mat-list-item
-          routerLinkActive="focused"
-          routerLink="/{{ modulesAddress.DASHBOARD }}"
-        >
+      <mat-nav-list>
+        <a mat-list-item routerLink="/" class="custom-logo">
+          <img class="p-4" src="assets/images/curtin-logo.jpg" alt="logo" />
+        </a>
+        <a mat-list-item routerLink="/{{ modulesAddress.DASHBOARD }}">
           {{ moduleNames[modulesAddress.DASHBOARD] }}
         </a>
-        <a
-          mat-list-item
-          routerLinkActive="focused"
-          routerLink="/{{ modulesAddress.INSTRUCTOR_PANEL }}"
-        >
+        <a mat-list-item routerLink="/{{ modulesAddress.INSTRUCTOR_PANEL }}">
           {{ moduleNames[modulesAddress.INSTRUCTOR_PANEL] }}
         </a>
-        <a
-          class="settings"
-          mat-list-item
-          routerLinkActive="focused"
-          routerLink="/{{ modulesAddress.SETTINGS }}"
-        >
+        <a mat-list-item routerLink="/{{ modulesAddress.SETTINGS }}">
           {{ moduleNames[modulesAddress.SETTINGS] }}
         </a>
-        <a
-          mat-list-item
-          routerLinkActive="focused"
-          routerLink="/{{ modulesAddress.ABOUT_US }}"
-        >
+        <a mat-list-item routerLink="/{{ modulesAddress.ABOUT_US }}">
           {{ moduleNames[modulesAddress.ABOUT_US] }}
         </a>
-      </div>
-    </mat-toolbar>
+      </mat-nav-list>
+    </mat-sidenav>
 
-    <mat-toolbar *ngIf="(isHandset$ | async) === true">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
+    <!-- Start of Content -->
+    <mat-sidenav-content
+      [@openClose]="isOpen ? true : false"
+      class="open-close-container"
+      [style.overflow]="(isHandset$ | async) === true ? 'auto' : 'hidden'"
+    >
+      <mat-toolbar
+        color="primary"
+        class="no_scroll mat-custom-row"
+        *ngIf="(isHandset$ | async) === false && !isMainRoute"
       >
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-    </mat-toolbar>
-    <app-loader></app-loader>
+        <a class="menu-class pl-0" routerLink="/">
+          <mat-icon>menu</mat-icon>
+        </a>
 
-    <simple-notifications></simple-notifications>
+        <div class="links-container">
+          <a
+            mat-list-item
+            routerLinkActive="focused"
+            routerLink="/{{ modulesAddress.DASHBOARD }}"
+          >
+            {{ moduleNames[modulesAddress.DASHBOARD] }}
+          </a>
+          <a
+            mat-list-item
+            routerLinkActive="focused"
+            routerLink="/{{ modulesAddress.INSTRUCTOR_PANEL }}"
+          >
+            {{ moduleNames[modulesAddress.INSTRUCTOR_PANEL] }}
+          </a>
+          <a
+            class="settings"
+            mat-list-item
+            routerLinkActive="focused"
+            routerLink="/{{ modulesAddress.SETTINGS }}"
+          >
+            {{ moduleNames[modulesAddress.SETTINGS] }}
+          </a>
+          <a
+            mat-list-item
+            routerLinkActive="focused"
+            routerLink="/{{ modulesAddress.ABOUT_US }}"
+          >
+            {{ moduleNames[modulesAddress.ABOUT_US] }}
+          </a>
+        </div>
+      </mat-toolbar>
 
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      <mat-toolbar *ngIf="(isHandset$ | async) === true">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+        >
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      </mat-toolbar>
+      <app-loader></app-loader>
+
+      <simple-notifications></simple-notifications>
+
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

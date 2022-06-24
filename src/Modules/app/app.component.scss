@@ -10,12 +10,14 @@ a {
   transition: 0.2s linear;
 }
 
-a:hover {
-  font-size: 3.5rem;
-  padding-top: 1rem;
-  text-decoration: underline;
-  font-weight: bolder;
-  letter-spacing: 3px;
+mat-sidenav-content {
+  a:hover {
+    font-size: 3.5rem;
+    padding-top: 1rem;
+    text-decoration: underline;
+    font-weight: bolder;
+    letter-spacing: 3px;
+  }
 }
 
 .mat-custom-row {
@@ -63,7 +65,6 @@ a:hover {
 }
 
 .menu-class {
-  color: black;
   width: 6rem;
   height: 3rem;
   margin-top: -2rem;
@@ -76,8 +77,4 @@ a:hover {
 .settings {
   font-weight: 900;
   font-size: xxx-large;
-}
-
-.mat-drawer-content {
-  overflow-x: hidden;
 }

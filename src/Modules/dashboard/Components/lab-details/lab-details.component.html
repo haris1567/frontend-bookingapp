@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid {{ colorMode }}">
   <div class="row">
     <div class="col content-container">
       <span class="display-2 pb-3">Details</span>
@@ -19,7 +19,7 @@
       <button
         class="pb-3"
         mat-raised-button
-        color="accent"
+        color="warn"
         (click)="closeDialog(true)"
       >
         View Calender
@@ -27,7 +27,7 @@
     </div>
 
     <div class="col">
-      <img mat-card-xl-image [src]="lab.imageUrl" />
+      <img mat-card-xl-image [src]="lab.imageUrl" appImagefilter />
 
       <span class="display-1">{{ lab.name }}</span>
     </div>
