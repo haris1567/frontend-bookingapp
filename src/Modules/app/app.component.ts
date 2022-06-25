@@ -79,7 +79,6 @@ export class AppComponent {
   }
 
   checkOptions(option: string, checked: boolean) {
-    console.log('Hello', option, checked)
     if (option === OPTIONS.ZOOM) {
       this.zoomEnabled = checked;
     }
