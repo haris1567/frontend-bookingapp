@@ -64,7 +64,7 @@ export class EditBookingComponent implements OnInit {
   getCreatedDate(timeString: string, timeType: string): Date {
     const convertedTimeString = timeString.includes('AM') || timeString.includes('PM') ? convert12HourTo24HrsFormat(timeString) : timeString;
 
-    const isLastHour = timeType === 'end' && convertedTimeString === '00:00';
+    const isLastHour = timeType === 'end' && convertedTimeString.includes('00:00');
 
     const currentDate = this.editForm.controls['bookingDate'].value;
 
