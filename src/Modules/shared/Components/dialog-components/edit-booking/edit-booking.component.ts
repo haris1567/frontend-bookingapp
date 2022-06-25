@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { addHours, format, startOfDay, startOfHour } from 'date-fns';
+import { addDays, addHours, format, startOfDay, startOfHour } from 'date-fns';
+import { convert12HourTo24HrsFormat } from 'src/Helpers/Helpers';
 import { BookingEditInfo } from 'src/Models/booking';
 import { BOOKING_ACTION, DATE_FORMAT, TIME_FORMAT } from 'src/Models/constants';
 import { AppService } from 'src/Services/app-Service/app.service';
@@ -60,9 +61,16 @@ export class EditBookingComponent implements OnInit {
   }
 
 
-  getCreatedDate(timeString: string): Date {
-    const formatDate = format(this.editForm.controls['bookingDate'].value, DATE_FORMAT);
-    const newDate = formatDate.concat(' ' + timeString);
+  getCreatedDate(timeString: string, timeType: string): Date {
+    const convertedTimeString = timeString.includes('AM') || timeString.includes('PM') ? convert12HourTo24HrsFormat(timeString) : timeString;
+
+    const isLastHour = timeType === 'end' && convertedTimeString === '00:00';
+
+    const currentDate = this.editForm.controls['bookingDate'].value;
+
+    let formatDate = format(isLastHour ? addDays(new Date(currentDate), 1) : currentDate, DATE_FORMAT);
+
+    const newDate = formatDate.concat(' ' + convertedTimeString);
     return new Date(newDate);
   }
 
@@ -72,15 +80,16 @@ export class EditBookingComponent implements OnInit {
       return;
     }
 
-    const startTime = this.getCreatedDate(this.editForm.controls['bookingStartTime'].value);
-    const endTime = this.getCreatedDate(this.editForm.controls['bookingEndTime'].value);
+    const startTime = this.getCreatedDate(this.editForm.controls['bookingStartTime'].value, 'start');
+    const endTime = this.getCreatedDate(this.editForm.controls['bookingEndTime'].value, 'end');
+
 
     this.editInfo = {
       ...this.editInfo,
       startTime, endTime
     }
-    this.dialogRef.close(this.editInfo);
 
+    this.dialogRef.close(this.editInfo);
   }
 
   disableActions(): void {

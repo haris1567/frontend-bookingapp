@@ -1,5 +1,5 @@
 import { Directive, HostBinding, Input, SimpleChanges } from '@angular/core';
-import { COLORMODES, hexToRgbString } from 'src/Models/constants';
+import { COLORMODES } from 'src/Models/constants';
 import { AppService } from 'src/Services/app-Service/app.service';
 
 @Directive({

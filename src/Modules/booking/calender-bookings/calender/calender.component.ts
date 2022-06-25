@@ -31,7 +31,7 @@ import {
 import { EditBookingComponent } from 'src/Modules/shared/Components/dialog-components/edit-booking/edit-booking.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Booking, BookingEditInfo, BookingEvent } from 'src/Models/booking';
-import { BOOKING_ACTION, LABNAMES, rgbToHex } from 'src/Models/constants';
+import { BOOKING_ACTION, LABNAMES } from 'src/Models/constants';
 import { UserInfoInputComponent } from 'src/Modules/shared/Components/dialog-components/user-info-input/user-info-input.component';
 import { BookingService } from 'src/Services/Booking-Service/booking.service';
 import { ConfirmationComponent } from 'src/Modules/shared/Components/dialog-components/confirmation/confirmation.component';
